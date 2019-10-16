@@ -1,12 +1,12 @@
 package com.montaury.citadelles.action;
 
 import com.montaury.citadelles.AssociationJoueurPersonnage;
-import com.montaury.citadelles.quartier.Carte;
 import com.montaury.citadelles.Pioche;
 import com.montaury.citadelles.TourDeJeu;
 import com.montaury.citadelles.faux.FauxControlleur;
 import com.montaury.citadelles.joueur.Joueur;
 import com.montaury.citadelles.personnage.Personnage;
+import com.montaury.citadelles.quartier.Carte;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -60,7 +60,18 @@ public class ActionPiocher1CarteParmiDevrait {
 
         action.réaliser(new AssociationJoueurPersonnage(joueur, Personnage.ROI), new TourDeJeu(), piocheAvec2Cartes);
 
-        assertThat(piocheAvec2Cartes.tirerCarte().get()).isEqualTo(Carte.MANOIR_1);
+        assertThat(piocheAvec2Cartes.tirerCarte()).containsExactly(Carte.MANOIR_1);
+    }
+
+    @Test
+    public void conserver_toutes_les_cartes_si_le_joueur_detient_la_bibliotheque() {
+        joueur.cité().batirQuartier(Carte.BIBLIOTHEQUE);
+
+        action.réaliser(new AssociationJoueurPersonnage(joueur, Personnage.ROI), new TourDeJeu(), piocheAvec2Cartes);
+
+        assertThat(controlleur.cartesDisponibles).isEmpty();
+        assertThat(piocheAvec2Cartes.tirerCarte()).isEmpty();
+        assertThat(joueur.main().cartes()).contains(Carte.PALAIS_2, Carte.MANOIR_1);
     }
 
     private FauxControlleur controlleur;

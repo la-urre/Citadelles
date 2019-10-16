@@ -7,10 +7,7 @@ import com.montaury.citadelles.personnage.Personnage;
 import com.montaury.citadelles.action.TypeAction;
 import com.montaury.citadelles.quartier.QuartierDestructible;
 import io.vavr.Tuple2;
-import io.vavr.collection.HashMap;
-import io.vavr.collection.List;
-import io.vavr.collection.Map;
-import io.vavr.collection.Set;
+import io.vavr.collection.*;
 import io.vavr.control.Option;
 
 public class FauxControlleur implements ControlleurDeJoueur {
@@ -21,7 +18,7 @@ public class FauxControlleur implements ControlleurDeJoueur {
     public Option<Carte> carteProposee = Option.none();
     private Personnage personnagePrechoisi;
     private Carte cartePrechoisie;
-    public Set<Carte> cartesDisponibles;
+    public Set<Carte> cartesDisponibles = HashSet.empty();
     private List<TypeAction> typeActionPrechoisi = List.empty();
     private Joueur joueurPrechoisi;
     public List<Joueur> joueursPourEchange = List.empty();
