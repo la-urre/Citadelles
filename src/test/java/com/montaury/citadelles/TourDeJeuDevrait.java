@@ -4,6 +4,7 @@ import com.montaury.citadelles.action.TypeAction;
 import com.montaury.citadelles.faux.FauxControlleur;
 import com.montaury.citadelles.joueur.Joueur;
 import com.montaury.citadelles.personnage.Personnage;
+import com.montaury.citadelles.quartier.Carte;
 import io.vavr.collection.List;
 import org.junit.Test;
 
@@ -47,7 +48,7 @@ public class TourDeJeuDevrait {
     }
 
     @Test
-    public void ne_pas_proposer_de_piocher_1_carte_parmi_2_si_la_pioche_est_vide() {
+    public void ne_pas_proposer_une_action_non_executable() {
         FauxControlleur fauxControlleur = new FauxControlleur();
         fauxControlleur.prechoisirActions(List.of(TypeAction.PRENDRE_2_PIECES, TypeAction.TERMINER_TOUR));
         TourDeJeu tourDeJeu = new TourDeJeu();

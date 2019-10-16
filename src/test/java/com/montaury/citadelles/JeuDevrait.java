@@ -1,6 +1,7 @@
 package com.montaury.citadelles;
 
 import com.montaury.citadelles.joueur.Joueur;
+import com.montaury.citadelles.quartier.Carte;
 import io.vavr.collection.List;
 import org.junit.Before;
 import org.junit.Test;

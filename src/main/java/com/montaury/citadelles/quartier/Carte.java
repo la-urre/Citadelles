@@ -1,6 +1,5 @@
-package com.montaury.citadelles;
+package com.montaury.citadelles.quartier;
 
-import com.montaury.citadelles.quartier.Quartier;
 import io.vavr.collection.HashSet;
 import io.vavr.collection.Set;
 

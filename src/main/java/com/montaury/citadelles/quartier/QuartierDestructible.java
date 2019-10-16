@@ -1,7 +1,5 @@
 package com.montaury.citadelles.quartier;
 
-import com.montaury.citadelles.Carte;
-
 public class QuartierDestructible {
     public QuartierDestructible(Carte quartier, Cout coutDeDestruction) {
         this.quartier = quartier;

@@ -1,5 +1,6 @@
 package com.montaury.citadelles;
 
+import com.montaury.citadelles.quartier.Carte;
 import io.vavr.collection.List;
 
 public class CitésPredefinies {

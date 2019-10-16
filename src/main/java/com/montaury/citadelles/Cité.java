@@ -2,9 +2,7 @@ package com.montaury.citadelles;
 
 import com.montaury.citadelles.joueur.Joueur;
 import com.montaury.citadelles.personnage.Personnage;
-import com.montaury.citadelles.quartier.Cout;
-import com.montaury.citadelles.quartier.Quartier;
-import com.montaury.citadelles.quartier.QuartierDestructible;
+import com.montaury.citadelles.quartier.*;
 import com.montaury.citadelles.score.Score;
 import io.vavr.collection.List;
 import io.vavr.collection.Set;
@@ -62,7 +60,7 @@ public class Cité {
     }
 
     public int nombreDeQuartiersDeType(TypeQuartier typeQuartier) {
-        return cartesQuartiers.filter(carte -> carte.quartier().typeDeQuartier() == typeQuartier).size();
+        return cartesQuartiers.map(Carte::quartier).filter(quartier -> quartier.estDeType(typeQuartier)).size();
     }
 
     private Set<TypeQuartier> typesDesQuartiers() {

@@ -1,6 +1,6 @@
 package com.montaury.citadelles.joueur;
 
-import com.montaury.citadelles.Carte;
+import com.montaury.citadelles.quartier.Carte;
 import io.vavr.collection.HashSet;
 import io.vavr.collection.Set;
 

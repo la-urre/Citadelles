@@ -1,6 +1,6 @@
 package com.montaury.citadelles.joueur;
 
-import com.montaury.citadelles.Carte;
+import com.montaury.citadelles.quartier.Carte;
 import com.montaury.citadelles.personnage.Personnage;
 import com.montaury.citadelles.action.TypeAction;
 import com.montaury.citadelles.quartier.QuartierDestructible;

@@ -1,7 +1,7 @@
 package com.montaury.citadelles.action;
 
 import com.montaury.citadelles.AssociationJoueurPersonnage;
-import com.montaury.citadelles.Carte;
+import com.montaury.citadelles.quartier.Carte;
 import com.montaury.citadelles.Pioche;
 import com.montaury.citadelles.TourDeJeu;
 import com.montaury.citadelles.joueur.Joueur;

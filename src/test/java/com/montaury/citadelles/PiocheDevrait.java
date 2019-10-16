@@ -1,6 +1,7 @@
 package com.montaury.citadelles;
 
 
+import com.montaury.citadelles.quartier.Carte;
 import io.vavr.collection.List;
 import io.vavr.collection.Set;
 import io.vavr.control.Option;

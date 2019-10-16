@@ -1,6 +1,6 @@
 package com.montaury.citadelles.joueur;
 
-import com.montaury.citadelles.Carte;
+import com.montaury.citadelles.quartier.Carte;
 import com.montaury.citadelles.Pioche;
 import com.montaury.citadelles.Possession;
 import com.montaury.citadelles.Cité;

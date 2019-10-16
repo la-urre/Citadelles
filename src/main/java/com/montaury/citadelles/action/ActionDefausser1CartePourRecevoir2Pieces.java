@@ -2,6 +2,7 @@ package com.montaury.citadelles.action;
 
 import com.montaury.citadelles.*;
 import com.montaury.citadelles.joueur.Joueur;
+import com.montaury.citadelles.quartier.Carte;
 
 public class ActionDefausser1CartePourRecevoir2Pieces implements Action {
     @Override

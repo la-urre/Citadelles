@@ -2,6 +2,7 @@ package com.montaury.citadelles.action;
 
 import com.montaury.citadelles.*;
 import com.montaury.citadelles.joueur.Joueur;
+import com.montaury.citadelles.quartier.Carte;
 import io.vavr.collection.Set;
 
 public class ActionPiocher1CarteParmi implements Action {

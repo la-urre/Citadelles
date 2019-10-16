@@ -1,6 +1,5 @@
-package com.montaury.citadelles;
+package com.montaury.citadelles.personnage;
 
-import com.montaury.citadelles.personnage.Personnage;
 import io.vavr.collection.List;
 
 public class PersonnageAleatoire {

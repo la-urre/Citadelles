@@ -1,7 +1,7 @@
 package com.montaury.citadelles.faux;
 
 import com.montaury.citadelles.personnage.Personnage;
-import com.montaury.citadelles.PersonnageAleatoire;
+import com.montaury.citadelles.personnage.PersonnageAleatoire;
 import io.vavr.collection.List;
 
 public class PersonnageAleatoirePrevu extends PersonnageAleatoire {

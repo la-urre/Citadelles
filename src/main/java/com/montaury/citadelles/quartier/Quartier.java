@@ -1,14 +1,13 @@
 package com.montaury.citadelles.quartier;
 
 import com.montaury.citadelles.Possession;
-import com.montaury.citadelles.TypeQuartier;
 import com.montaury.citadelles.action.TypeAction;
 import com.montaury.citadelles.personnage.Personnage;
 import com.montaury.citadelles.score.Score;
 import io.vavr.collection.Set;
 import io.vavr.control.Option;
 
-import static com.montaury.citadelles.TypeQuartier.*;
+import static com.montaury.citadelles.quartier.TypeQuartier.*;
 import static com.montaury.citadelles.action.TypeAction.*;
 
 public enum Quartier {
@@ -59,6 +58,10 @@ public enum Quartier {
 
     public final Cout coutDeConstruction() {
         return coutDeConstruction;
+    }
+
+    public boolean estDeType(TypeQuartier typeDeQuartier) {
+        return typeDeQuartier().equals(typeDeQuartier);
     }
 
     public final TypeQuartier typeDeQuartier() {
