@@ -5,6 +5,7 @@ import com.montaury.citadelles.Pioche;
 import com.montaury.citadelles.quartier.Quartier;
 import io.vavr.collection.HashSet;
 import io.vavr.collection.List;
+import io.vavr.collection.Set;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,9 +26,9 @@ public class JoueurDevrait {
         joueur.ajouterPieces(5);
         joueur.ajouterCarteALaMain(Carte.PALAIS_1);
 
-        boolean peutBatir = joueur.peutBatirQuartier(Carte.PALAIS_1);
+        Set<Carte> quartierBatissables = joueur.quartierBatissablesEnMain();
 
-        assertThat(peutBatir).isTrue();
+        assertThat(quartierBatissables).containsExactly(Carte.PALAIS_1);
     }
 
     @Test
@@ -35,9 +36,9 @@ public class JoueurDevrait {
         joueur.ajouterPieces(2);
         joueur.ajouterCarteALaMain(Carte.PALAIS_1);
 
-        boolean peutBatir = joueur.peutBatirQuartier(Carte.PALAIS_1);
+        Set<Carte> quartierBatissables = joueur.quartierBatissablesEnMain();
 
-        assertThat(peutBatir).isFalse();
+        assertThat(quartierBatissables).isEmpty();
     }
 
     @Test
@@ -46,9 +47,9 @@ public class JoueurDevrait {
         joueur.ajouterCartesALaMain(HashSet.of(Carte.PALAIS_1, Carte.PALAIS_2));
         joueur.batirQuartier(Carte.PALAIS_1);
 
-        boolean peutBatir = joueur.peutBatirQuartier(Carte.PALAIS_2);
+        Set<Carte> quartierBatissables = joueur.quartierBatissablesEnMain();
 
-        assertThat(peutBatir).isFalse();
+        assertThat(quartierBatissables).isEmpty();
     }
 
     @Test

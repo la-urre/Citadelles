@@ -61,7 +61,7 @@ public class Joueur {
         return trésor.peutPayer(cout);
     }
 
-    public boolean peutBatirQuartier(Carte carte) {
+    private boolean peutBatirQuartier(Carte carte) {
         return trésor.peutPayer(carte.quartier().coutDeConstruction()) && !cité.estBati(carte.quartier());
     }
 

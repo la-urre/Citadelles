@@ -14,15 +14,15 @@ public class Trésor {
         this.pieces += pieces;
     }
 
-    public void ajouter(Trésor trésor) {
+    void ajouter(Trésor trésor) {
         this.pieces += trésor.pieces;
     }
 
-    public void payer(Cout cout) {
+    void payer(Cout cout) {
         this.pieces -= cout.montant();
     }
 
-    public boolean peutPayer(Cout cout) {
+    boolean peutPayer(Cout cout) {
         return this.pieces >= cout.montant();
     }
 

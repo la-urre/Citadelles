@@ -59,7 +59,7 @@ public class Cité {
         return quartiers().map(Quartier::coutDeConstruction).fold(Cout.nul(), Cout::plus);
     }
 
-    public int nombreDeQuartiersDeType(TypeQuartier typeQuartier) {
+    int nombreDeQuartiersDeType(TypeQuartier typeQuartier) {
         return cartesQuartiers.map(Carte::quartier).filter(quartier -> quartier.estDeType(typeQuartier)).size();
     }
 
