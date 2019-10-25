@@ -1,5 +1,7 @@
 package com.montaury.citadelles;
 
+import com.montaury.citadelles.joueur.ControlleurHumain;
+import com.montaury.citadelles.joueur.ControlleurOrdinateur;
 import com.montaury.citadelles.joueur.Joueur;
 import com.montaury.citadelles.score.Classement;
 import io.vavr.collection.List;
@@ -30,19 +32,24 @@ public class Principal {
     private static Jeu preparerJeu() {
         Scanner scanner = new Scanner(System.in);
         PreparateurDePartie preparateurDePartie = new PreparateurDePartie();
-        while (preparateurDePartie.peutAjouterJoueur() && !preparateurDePartie.peutCommencer()) {
-            System.out.println("Saisir le nom du joueur (2 minimum, c pour commencer le jeu): ");
-            String nomDuJoueur = scanner.next();
-            if (!nomDuJoueur.equals("c")) {
-                if (!preparateurDePartie.joueurExiste(nomDuJoueur)) {
-                    preparateurDePartie.ajouterJoueur(nomDuJoueur);
-                }
-                else {
-                    System.out.println("Ce joueur a déjà été ajouté à la partie");
-                }
-            }
-        }
+        System.out.println("Hello! Quel est votre nom ? ");
+        String nomDuJoueur = scanner.next();
+        System.out.println("Quel est votre age ? ");
+        int ageDuJoueur = scanner.nextInt();
+        CitésComplètes citésComplètes = new CitésComplètes();
+        preparateurDePartie.ajouterJoueur(new Joueur(nomDuJoueur, ageDuJoueur, new Cité(citésComplètes), new ControlleurHumain()));
+        int nombreDeJoueurs = faireSaisirLeNombreDeJoueurs(scanner);
+        List.range(0, nombreDeJoueurs).forEach(i -> preparateurDePartie.ajouterJoueur(new Joueur("Computer " + i, 35, new Cité(citésComplètes), new ControlleurOrdinateur())));
         return preparateurDePartie.preparer();
+    }
+
+    private static int faireSaisirLeNombreDeJoueurs(Scanner scanner) {
+        System.out.println("Saisir le nombre de joueurs total (entre 2 et 8): ");
+        int nombreDeJoueur;
+        do {
+            nombreDeJoueur = scanner.nextInt();
+        } while(nombreDeJoueur < PreparateurDePartie.MINIMUM_DE_JOUEURS || nombreDeJoueur > PreparateurDePartie.MAXIMUM_DE_JOUEURS);
+        return nombreDeJoueur;
     }
 
 }
