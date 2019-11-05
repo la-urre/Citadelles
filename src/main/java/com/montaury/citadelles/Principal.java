@@ -39,7 +39,7 @@ public class Principal {
         CitésComplètes citésComplètes = new CitésComplètes();
         preparateurDePartie.ajouterJoueur(new Joueur(nomDuJoueur, ageDuJoueur, new Cité(citésComplètes), new ControlleurHumain()));
         int nombreDeJoueurs = faireSaisirLeNombreDeJoueurs(scanner);
-        List.range(0, nombreDeJoueurs).forEach(i -> preparateurDePartie.ajouterJoueur(new Joueur("Computer " + i, 35, new Cité(citésComplètes), new ControlleurOrdinateur())));
+        List.range(0, nombreDeJoueurs-1).forEach(i -> preparateurDePartie.ajouterJoueur(new Joueur("Computer " + i, 35, new Cité(citésComplètes), new ControlleurOrdinateur())));
         return preparateurDePartie.preparer();
     }
 
