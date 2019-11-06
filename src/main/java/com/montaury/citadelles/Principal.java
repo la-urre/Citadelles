@@ -4,6 +4,7 @@ import com.montaury.citadelles.joueur.ControlleurHumain;
 import com.montaury.citadelles.joueur.ControlleurOrdinateur;
 import com.montaury.citadelles.joueur.Joueur;
 import com.montaury.citadelles.score.Classement;
+import com.montaury.citadelles.tour.TourDeJeu;
 import io.vavr.collection.List;
 
 import java.util.Scanner;

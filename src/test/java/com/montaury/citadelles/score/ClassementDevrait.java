@@ -1,7 +1,7 @@
 package com.montaury.citadelles.score;
 
 import com.montaury.citadelles.quartier.Carte;
-import com.montaury.citadelles.TourDeJeu;
+import com.montaury.citadelles.tour.TourDeJeu;
 import com.montaury.citadelles.joueur.Joueur;
 import com.montaury.citadelles.personnage.Personnage;
 import io.vavr.collection.List;

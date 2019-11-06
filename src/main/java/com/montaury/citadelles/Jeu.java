@@ -3,6 +3,8 @@ package com.montaury.citadelles;
 import com.montaury.citadelles.joueur.Joueur;
 import com.montaury.citadelles.personnage.Personnage;
 import com.montaury.citadelles.personnage.PersonnageAleatoire;
+import com.montaury.citadelles.tour.PhaseDeSelectionDesPersonnages;
+import com.montaury.citadelles.tour.TourDeJeu;
 import io.vavr.collection.List;
 
 public class Jeu {

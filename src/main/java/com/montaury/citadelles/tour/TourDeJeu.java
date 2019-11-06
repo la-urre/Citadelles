@@ -1,5 +1,6 @@
-package com.montaury.citadelles;
+package com.montaury.citadelles.tour;
 
+import com.montaury.citadelles.Pioche;
 import com.montaury.citadelles.joueur.Joueur;
 import com.montaury.citadelles.personnage.Personnage;
 import com.montaury.citadelles.quartier.Carte;

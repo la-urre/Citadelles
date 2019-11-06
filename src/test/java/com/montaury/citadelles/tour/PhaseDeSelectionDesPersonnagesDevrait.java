@@ -1,9 +1,11 @@
-package com.montaury.citadelles;
+package com.montaury.citadelles.tour;
 
 import com.montaury.citadelles.faux.FauxControlleur;
 import com.montaury.citadelles.faux.PersonnageAleatoirePrevu;
 import com.montaury.citadelles.joueur.Joueur;
 import com.montaury.citadelles.personnage.Personnage;
+import com.montaury.citadelles.tour.PhaseDeSelectionDesPersonnages;
+import com.montaury.citadelles.tour.TourDeJeu;
 import io.vavr.collection.List;
 import org.junit.Before;
 import org.junit.Test;

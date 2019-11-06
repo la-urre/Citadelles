@@ -5,6 +5,8 @@ import com.montaury.citadelles.faux.FauxControlleur;
 import com.montaury.citadelles.joueur.Joueur;
 import com.montaury.citadelles.personnage.Personnage;
 import com.montaury.citadelles.quartier.Carte;
+import com.montaury.citadelles.tour.AssociationJoueurPersonnage;
+import com.montaury.citadelles.tour.TourDeJeu;
 import org.junit.Test;
 
 import static com.montaury.citadelles.CitésPredefinies.citéVide;

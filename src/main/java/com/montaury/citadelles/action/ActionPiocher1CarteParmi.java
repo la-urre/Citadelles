@@ -4,6 +4,8 @@ import com.montaury.citadelles.*;
 import com.montaury.citadelles.joueur.Joueur;
 import com.montaury.citadelles.quartier.Carte;
 import com.montaury.citadelles.quartier.Quartier;
+import com.montaury.citadelles.tour.AssociationJoueurPersonnage;
+import com.montaury.citadelles.tour.TourDeJeu;
 import io.vavr.collection.HashSet;
 import io.vavr.collection.Set;
 
