@@ -28,10 +28,10 @@ public class PhaseDeSelectionDesPersonnagesDevrait {
         controlleur.prechoisirPersonnage(Personnage.MARCHAND);
         Joueur joueur = new Joueur("Toto", 20, citéVide(), controlleur);
 
-        TourDeJeu tourDeJeu = phaseDeSelectionDesPersonnages.faireChoisirPersonnages(List.of(joueur));
+        List<AssociationJoueurPersonnage> association = phaseDeSelectionDesPersonnages.faireChoisirPersonnages(List.of(joueur));
 
         assertThat(controlleur.personnagesDisponibles).isNotNull();
-        assertThat(tourDeJeu.joueurAssocieAuPersonnage(Personnage.MARCHAND)).containsExactly(joueur);
+        assertThat(association.get(0).joueur()).isEqualTo(joueur);
     }
 
     @Test

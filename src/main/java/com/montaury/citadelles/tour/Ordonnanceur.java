@@ -1,4 +1,4 @@
-package com.montaury.citadelles;
+package com.montaury.citadelles.tour;
 
 import com.montaury.citadelles.joueur.Joueur;
 import io.vavr.collection.List;

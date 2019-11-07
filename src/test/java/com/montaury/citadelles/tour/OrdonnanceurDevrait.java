@@ -1,6 +1,7 @@
-package com.montaury.citadelles;
+package com.montaury.citadelles.tour;
 
 import com.montaury.citadelles.joueur.Joueur;
+import com.montaury.citadelles.tour.Ordonnanceur;
 import io.vavr.collection.List;
 import org.junit.Before;
 import org.junit.Test;

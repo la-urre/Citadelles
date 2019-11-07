@@ -1,9 +1,9 @@
 package com.montaury.citadelles.action;
 
-import com.montaury.citadelles.tour.AssociationJoueurPersonnage;
-import com.montaury.citadelles.tour.TourDeJeu;
-import com.montaury.citadelles.joueur.Joueur;
 import com.montaury.citadelles.Pioche;
+import com.montaury.citadelles.joueur.Joueur;
+import com.montaury.citadelles.tour.AssociationJoueurPersonnage;
+import com.montaury.citadelles.tour.AssociationsDeTour;
 
 public enum TypeAction {
     // ACTIONS DE BASE
@@ -31,12 +31,12 @@ public enum TypeAction {
         this.action = action;
     }
 
-    public boolean estRéalisablePar(Joueur joueur, TourDeJeu tourDeJeu, Pioche pioche) {
-        return action.estRéalisablePar(joueur, tourDeJeu, pioche);
+    public boolean estRéalisablePar(Joueur joueur, AssociationsDeTour associations, Pioche pioche) {
+        return action.estRéalisablePar(joueur, associations, pioche);
     }
 
-    public void réaliser(AssociationJoueurPersonnage associationJoueurPersonnage, TourDeJeu tourDeJeu, Pioche pioche) {
-        action.réaliser(associationJoueurPersonnage, tourDeJeu, pioche);
+    public void réaliser(AssociationJoueurPersonnage associationJoueurPersonnage, AssociationsDeTour associations, Pioche pioche) {
+        action.réaliser(associationJoueurPersonnage, associations, pioche);
     }
 
     private final Action action;

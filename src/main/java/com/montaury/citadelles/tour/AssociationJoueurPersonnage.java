@@ -10,6 +10,9 @@ import io.vavr.collection.Set;
 import io.vavr.control.Option;
 
 public class AssociationJoueurPersonnage {
+    public static AssociationJoueurPersonnage associationEntre(Joueur joueur, Personnage personnage) {
+        return new AssociationJoueurPersonnage(joueur, personnage);
+    }
 
     public AssociationJoueurPersonnage(Joueur joueur, Personnage personnage) {
         this.joueur = joueur;

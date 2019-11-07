@@ -1,14 +1,14 @@
 package com.montaury.citadelles.action;
 
-import com.montaury.citadelles.tour.AssociationJoueurPersonnage;
-import com.montaury.citadelles.quartier.Carte;
 import com.montaury.citadelles.Pioche;
-import com.montaury.citadelles.tour.TourDeJeu;
 import com.montaury.citadelles.faux.FauxControlleur;
 import com.montaury.citadelles.joueur.Joueur;
 import com.montaury.citadelles.personnage.Personnage;
+import com.montaury.citadelles.quartier.Carte;
 import com.montaury.citadelles.quartier.Quartier;
 import com.montaury.citadelles.quartier.QuartierDestructible;
+import com.montaury.citadelles.tour.AssociationJoueurPersonnage;
+import com.montaury.citadelles.tour.AssociationsDeTour;
 import io.vavr.Tuple2;
 import io.vavr.collection.List;
 import io.vavr.collection.Seq;
@@ -17,6 +17,8 @@ import org.junit.Test;
 
 import static com.montaury.citadelles.CitésPredefinies.citéAvec;
 import static com.montaury.citadelles.CitésPredefinies.citéVide;
+import static com.montaury.citadelles.tour.AssociationJoueurPersonnage.associationEntre;
+import static com.montaury.citadelles.tour.AssociationsDeTour.associationsDeTour;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ActionDetruireQuartierDevrait {
@@ -32,12 +34,13 @@ public class ActionDetruireQuartierDevrait {
         Joueur joueur1 = new Joueur("Toto", 12, citéVide(), controlleurJoueur1);
         Joueur joueur2 = new Joueur("Tata", 12, citéVide(), new FauxControlleur());
         Joueur joueur3 = new Joueur("Titi", 12, citéVide(), new FauxControlleur());
+        AssociationsDeTour associations = associationsDeTour(
+                associationEntre(joueur1, Personnage.CONDOTTIERE),
+                associationEntre(joueur2, Personnage.MAGICIEN),
+                associationEntre(joueur3, Personnage.ARCHITECTE)
+        );
 
-        TourDeJeu tourDeJeu = new TourDeJeu();
-        tourDeJeu.associer(Personnage.CONDOTTIERE, joueur1);
-        tourDeJeu.associer(Personnage.MAGICIEN, joueur2);
-        tourDeJeu.associer(Personnage.ARCHITECTE, joueur3);
-        boolean executable = action.estRéalisablePar(joueur1, tourDeJeu, Pioche.vide());
+        boolean executable = action.estRéalisablePar(joueur1, associations, Pioche.vide());
 
         assertThat(executable).isFalse();
     }
@@ -49,12 +52,13 @@ public class ActionDetruireQuartierDevrait {
         joueur1.ajouterPieces(3);
         Joueur joueur2 = new Joueur("Tata", 12, citéVide(), new FauxControlleur());
         Joueur joueur3 = new Joueur("Titi", 12, citéAvec(Carte.CHATEAU_1), new FauxControlleur());
+        AssociationsDeTour associations = associationsDeTour(
+                associationEntre(joueur1, Personnage.CONDOTTIERE),
+                associationEntre(joueur2, Personnage.MAGICIEN),
+                associationEntre(joueur3, Personnage.ARCHITECTE)
+        );
 
-        TourDeJeu tourDeJeu = new TourDeJeu();
-        tourDeJeu.associer(Personnage.CONDOTTIERE, joueur1);
-        tourDeJeu.associer(Personnage.MAGICIEN, joueur2);
-        tourDeJeu.associer(Personnage.ARCHITECTE, joueur3);
-        boolean executable = action.estRéalisablePar(joueur1, tourDeJeu, Pioche.vide());
+        boolean executable = action.estRéalisablePar(joueur1, associations, Pioche.vide());
 
         assertThat(executable).isTrue();
     }
@@ -66,12 +70,13 @@ public class ActionDetruireQuartierDevrait {
         Joueur joueur1 = new Joueur("Toto", 12, citéVide(), controlleurJoueur1);
         Joueur joueur2 = new Joueur("Tata", 12, citéVide(), new FauxControlleur());
         Joueur joueur3 = new Joueur("Titi", 12, citéAvec(Carte.TAVERNE_1), new FauxControlleur());
+        AssociationsDeTour associations = associationsDeTour(
+                associationEntre(joueur1, Personnage.CONDOTTIERE),
+                associationEntre(joueur2, Personnage.MAGICIEN),
+                associationEntre(joueur3, Personnage.ARCHITECTE)
+        );
 
-        TourDeJeu tourDeJeu = new TourDeJeu();
-        tourDeJeu.associer(Personnage.CONDOTTIERE, joueur1);
-        tourDeJeu.associer(Personnage.MAGICIEN, joueur2);
-        tourDeJeu.associer(Personnage.ARCHITECTE, joueur3);
-        action.réaliser(new AssociationJoueurPersonnage(joueur1, Personnage.CONDOTTIERE), tourDeJeu, Pioche.vide());
+        action.réaliser(new AssociationJoueurPersonnage(joueur1, Personnage.CONDOTTIERE), associations, Pioche.vide());
 
         assertThat(controlleurJoueur1.quartiersDestructibles.get(joueur1)).contains(List.empty());
         assertThat(controlleurJoueur1.quartiersDestructibles.get(joueur2)).contains(List.empty());
@@ -86,13 +91,14 @@ public class ActionDetruireQuartierDevrait {
         Joueur joueur2 = new Joueur("Tata", 12, citéVide(), new FauxControlleur());
         Joueur joueur3 = new Joueur("Titi", 12, citéAvec(Carte.TAVERNE_1), new FauxControlleur());
         Joueur joueur4 = new Joueur("Tutu", 12, citéAvec(Carte.TAVERNE_2), new FauxControlleur());
+        AssociationsDeTour associations = associationsDeTour(
+                associationEntre(joueur1, Personnage.CONDOTTIERE),
+                associationEntre(joueur2, Personnage.MAGICIEN),
+                associationEntre(joueur3, Personnage.ARCHITECTE),
+                associationEntre(joueur4, Personnage.EVEQUE)
+        );
 
-        TourDeJeu tourDeJeu = new TourDeJeu();
-        tourDeJeu.associer(Personnage.CONDOTTIERE, joueur1);
-        tourDeJeu.associer(Personnage.MAGICIEN, joueur2);
-        tourDeJeu.associer(Personnage.ARCHITECTE, joueur3);
-        tourDeJeu.associer(Personnage.EVEQUE, joueur4);
-        action.réaliser(new AssociationJoueurPersonnage(joueur1, Personnage.CONDOTTIERE), tourDeJeu, Pioche.vide());
+        action.réaliser(new AssociationJoueurPersonnage(joueur1, Personnage.CONDOTTIERE), associations, Pioche.vide());
 
         assertThat(controlleurJoueur1.quartiersDestructibles.get(joueur4)).isEmpty();
     }
@@ -106,14 +112,15 @@ public class ActionDetruireQuartierDevrait {
         Joueur joueur3 = new Joueur("Titi", 12, citéVide(), new FauxControlleur());
         Joueur joueur4 = new Joueur("Tutu", 12, citéAvec(Carte.TAVERNE_1), new FauxControlleur());
 
-        TourDeJeu tourDeJeu = new TourDeJeu();
-        tourDeJeu.associer(Personnage.CONDOTTIERE, joueur1);
-        tourDeJeu.associer(Personnage.ASSASSIN, joueur2);
-        tourDeJeu.associer(Personnage.ARCHITECTE, joueur3);
-        tourDeJeu.associer(Personnage.EVEQUE, joueur4);
-        tourDeJeu.assassiner(Personnage.EVEQUE);
+        AssociationsDeTour associations = associationsDeTour(
+                associationEntre(joueur1, Personnage.CONDOTTIERE),
+                associationEntre(joueur2, Personnage.ASSASSIN),
+                associationEntre(joueur3, Personnage.ARCHITECTE),
+                associationEntre(joueur4, Personnage.EVEQUE)
+        );
+        associations.assassiner(Personnage.EVEQUE);
 
-        action.réaliser(new AssociationJoueurPersonnage(joueur1, Personnage.CONDOTTIERE), tourDeJeu, Pioche.vide());
+        action.réaliser(new AssociationJoueurPersonnage(joueur1, Personnage.CONDOTTIERE), associations, Pioche.vide());
 
         Seq<Carte> quartiersDestructibles = controlleurJoueur1.quartiersDestructibles.flatMap(Tuple2::_2).map(QuartierDestructible::quartier);
         assertThat(quartiersDestructibles).contains(Carte.TAVERNE_1);
@@ -127,11 +134,12 @@ public class ActionDetruireQuartierDevrait {
         joueur1.ajouterPieces(3);
         Joueur joueur2 = new Joueur("Tata", 12, citéAvec(Carte.CHATEAU_1), new FauxControlleur());
 
-        TourDeJeu tourDeJeu = new TourDeJeu();
-        tourDeJeu.associer(Personnage.CONDOTTIERE, joueur1);
-        tourDeJeu.associer(Personnage.ASSASSIN, joueur2);
+        AssociationsDeTour associations = associationsDeTour(
+                associationEntre(joueur1, Personnage.CONDOTTIERE),
+                associationEntre(joueur2, Personnage.ASSASSIN)
+        );
 
-        action.réaliser(new AssociationJoueurPersonnage(joueur1, Personnage.CONDOTTIERE), tourDeJeu, Pioche.vide());
+        action.réaliser(new AssociationJoueurPersonnage(joueur1, Personnage.CONDOTTIERE), associations, Pioche.vide());
 
         assertThat(joueur2.cité().estBati(Quartier.CHATEAU)).isFalse();
     }
@@ -143,12 +151,12 @@ public class ActionDetruireQuartierDevrait {
         Joueur joueur1 = new Joueur("Toto", 12, citéVide(), controlleurJoueur1);
         joueur1.ajouterPieces(3);
         Joueur joueur2 = new Joueur("Tata", 12, citéAvec(Carte.CHATEAU_1), new FauxControlleur());
+        AssociationsDeTour associations = associationsDeTour(
+                associationEntre(joueur1, Personnage.CONDOTTIERE),
+                associationEntre(joueur2, Personnage.ASSASSIN)
+        );
 
-        TourDeJeu tourDeJeu = new TourDeJeu();
-        tourDeJeu.associer(Personnage.CONDOTTIERE, joueur1);
-        tourDeJeu.associer(Personnage.ASSASSIN, joueur2);
-
-        action.réaliser(new AssociationJoueurPersonnage(joueur1, Personnage.CONDOTTIERE), tourDeJeu, Pioche.vide());
+        action.réaliser(new AssociationJoueurPersonnage(joueur1, Personnage.CONDOTTIERE), associations, Pioche.vide());
 
         assertThat(joueur1.trésor().pieces()).isEqualTo(0);
     }
@@ -160,13 +168,13 @@ public class ActionDetruireQuartierDevrait {
         Joueur joueur1 = new Joueur("Toto", 12, citéVide(), controlleurJoueur1);
         joueur1.ajouterPieces(3);
         Joueur joueur2 = new Joueur("Tata", 12, citéAvec(Carte.CHATEAU_1), new FauxControlleur());
-
-        TourDeJeu tourDeJeu = new TourDeJeu();
-        tourDeJeu.associer(Personnage.CONDOTTIERE, joueur1);
-        tourDeJeu.associer(Personnage.ASSASSIN, joueur2);
+        AssociationsDeTour associations = associationsDeTour(
+                associationEntre(joueur1, Personnage.CONDOTTIERE),
+                associationEntre(joueur2, Personnage.ASSASSIN)
+        );
 
         Pioche pioche = Pioche.vide();
-        action.réaliser(new AssociationJoueurPersonnage(joueur1, Personnage.CONDOTTIERE), tourDeJeu, pioche);
+        action.réaliser(new AssociationJoueurPersonnage(joueur1, Personnage.CONDOTTIERE), associations, pioche);
 
         assertThat(pioche.tirerCarte()).containsExactly(Carte.CHATEAU_1);
     }
@@ -181,13 +189,13 @@ public class ActionDetruireQuartierDevrait {
         FauxControlleur controlleurJoueur3 = new FauxControlleur();
         Joueur joueur3 = new Joueur("Titi", 12, citéAvec(Carte.CIMETIERE), controlleurJoueur3);
         joueur3.ajouterPieces(1);
+        AssociationsDeTour associations = associationsDeTour(
+                associationEntre(joueur1, Personnage.CONDOTTIERE),
+                associationEntre(joueur2, Personnage.ASSASSIN),
+                associationEntre(joueur3, Personnage.MARCHAND)
+        );
 
-        TourDeJeu tourDeJeu = new TourDeJeu();
-        tourDeJeu.associer(Personnage.CONDOTTIERE, joueur1);
-        tourDeJeu.associer(Personnage.ASSASSIN, joueur2);
-        tourDeJeu.associer(Personnage.MARCHAND, joueur3);
-
-        action.réaliser(new AssociationJoueurPersonnage(joueur1, Personnage.CONDOTTIERE), tourDeJeu, Pioche.vide());
+        action.réaliser(new AssociationJoueurPersonnage(joueur1, Personnage.CONDOTTIERE), associations, Pioche.vide());
 
         assertThat(controlleurJoueur3.carteProposee).contains(Carte.CHATEAU_1);
     }
@@ -201,13 +209,13 @@ public class ActionDetruireQuartierDevrait {
         Joueur joueur2 = new Joueur("Tata", 12, citéAvec(Carte.CHATEAU_1, Carte.CASERNE_1), new FauxControlleur());
         FauxControlleur controlleurJoueur3 = new FauxControlleur();
         Joueur joueur3 = new Joueur("Titi", 12, citéAvec(Carte.CIMETIERE), controlleurJoueur3);
+        AssociationsDeTour associations = associationsDeTour(
+                associationEntre(joueur1, Personnage.CONDOTTIERE),
+                associationEntre(joueur2, Personnage.ASSASSIN),
+                associationEntre(joueur3, Personnage.MARCHAND)
+        );
 
-        TourDeJeu tourDeJeu = new TourDeJeu();
-        tourDeJeu.associer(Personnage.CONDOTTIERE, joueur1);
-        tourDeJeu.associer(Personnage.ASSASSIN, joueur2);
-        tourDeJeu.associer(Personnage.MARCHAND, joueur3);
-
-        action.réaliser(new AssociationJoueurPersonnage(joueur1, Personnage.CONDOTTIERE), tourDeJeu, Pioche.vide());
+        action.réaliser(new AssociationJoueurPersonnage(joueur1, Personnage.CONDOTTIERE), associations, Pioche.vide());
 
         assertThat(controlleurJoueur3.carteProposee).isEmpty();
     }
@@ -219,12 +227,12 @@ public class ActionDetruireQuartierDevrait {
         Joueur joueur1 = new Joueur("Toto", 12, citéAvec(Carte.CIMETIERE), controlleurJoueur1);
         joueur1.ajouterPieces(4);
         Joueur joueur2 = new Joueur("Tata", 12, citéAvec(Carte.CHATEAU_1, Carte.CASERNE_1), new FauxControlleur());
+        AssociationsDeTour associations = associationsDeTour(
+                associationEntre(joueur1, Personnage.CONDOTTIERE),
+                associationEntre(joueur2, Personnage.ASSASSIN)
+        );
 
-        TourDeJeu tourDeJeu = new TourDeJeu();
-        tourDeJeu.associer(Personnage.CONDOTTIERE, joueur1);
-        tourDeJeu.associer(Personnage.ASSASSIN, joueur2);
-
-        action.réaliser(new AssociationJoueurPersonnage(joueur1, Personnage.CONDOTTIERE), tourDeJeu, Pioche.vide());
+        action.réaliser(new AssociationJoueurPersonnage(joueur1, Personnage.CONDOTTIERE), associations, Pioche.vide());
 
         assertThat(controlleurJoueur1.carteProposee).isEmpty();
     }
@@ -240,13 +248,13 @@ public class ActionDetruireQuartierDevrait {
         controlleurJoueur3.preAccepterCarte();
         Joueur joueur3 = new Joueur("Titi", 12, citéAvec(Carte.CIMETIERE), controlleurJoueur3);
         joueur3.ajouterPieces(1);
+        AssociationsDeTour associations = associationsDeTour(
+                associationEntre(joueur1, Personnage.CONDOTTIERE),
+                associationEntre(joueur2, Personnage.ASSASSIN),
+                associationEntre(joueur3, Personnage.MARCHAND)
+        );
 
-        TourDeJeu tourDeJeu = new TourDeJeu();
-        tourDeJeu.associer(Personnage.CONDOTTIERE, joueur1);
-        tourDeJeu.associer(Personnage.ASSASSIN, joueur2);
-        tourDeJeu.associer(Personnage.MARCHAND, joueur3);
-
-        action.réaliser(new AssociationJoueurPersonnage(joueur1, Personnage.CONDOTTIERE), tourDeJeu, Pioche.vide());
+        action.réaliser(new AssociationJoueurPersonnage(joueur1, Personnage.CONDOTTIERE), associations, Pioche.vide());
 
         assertThat(joueur3.trésor().pieces()).isEqualTo(0);
         assertThat(joueur3.main().cartes()).contains(Carte.CHATEAU_1);

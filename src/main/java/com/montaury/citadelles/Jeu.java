@@ -2,40 +2,40 @@ package com.montaury.citadelles;
 
 import com.montaury.citadelles.joueur.Joueur;
 import com.montaury.citadelles.personnage.Personnage;
-import com.montaury.citadelles.personnage.PersonnageAleatoire;
-import com.montaury.citadelles.tour.PhaseDeSelectionDesPersonnages;
+import com.montaury.citadelles.score.Classement;
+import com.montaury.citadelles.tour.AssociationJoueurPersonnage;
 import com.montaury.citadelles.tour.TourDeJeu;
 import io.vavr.collection.List;
+import io.vavr.control.Option;
 
 public class Jeu {
-
-    private final List<Joueur> joueurs;
 
     public Jeu(List<Joueur> joueurs) {
         this.joueurs = joueurs;
     }
 
-    TourDeJeu jouer(Joueur joueurAvecCouronne, Pioche pioche) {
-        Ordonnanceur ordonnanceur = new Ordonnanceur();
-        TourDeJeu tourDeJeu;
+    void jouer() {
+        Pioche pioche = Pioche.completeMelangee();
+        Joueur joueurAvecCouronne = new MiseEnPlace().commencerPartie(pioche, joueurs);
+
+        List<AssociationJoueurPersonnage> associationsDuTour;
         do {
-            PhaseDeSelectionDesPersonnages phaseDeSelectionDesPersonnages = new PhaseDeSelectionDesPersonnages(new PersonnageAleatoire());
-            System.out.println("Nouveau tour de jeu");
-            List<Joueur> joueursDansLOrdre = ordonnanceur.ordonnerJoueurs(joueurs, joueurAvecCouronne);
-            tourDeJeu = phaseDeSelectionDesPersonnages.faireChoisirPersonnages(joueursDansLOrdre);
-
-            tourDeJeu.deroulerTour(pioche);
-
-            joueurAvecCouronne = tourDeJeu.joueurAssocieAuPersonnage(Personnage.ROI).getOrElse(joueurAvecCouronne);
+            associationsDuTour = new TourDeJeu().jouer(joueurs, joueurAvecCouronne, pioche);
+            joueurAvecCouronne = joueurAyantRoiParmi(associationsDuTour).getOrElse(joueurAvecCouronne);
         } while (!estFini());
-        return tourDeJeu;
+
+        System.out.println("Classement: " + classement.classer(associationsDuTour));
     }
 
-    public List<Joueur> joueurs() {
-        return joueurs;
+    private Option<Joueur> joueurAyantRoiParmi(List<AssociationJoueurPersonnage> associations) {
+        return associations.find(a -> a.personnage == Personnage.ROI).map(AssociationJoueurPersonnage::joueur);
     }
 
-    public boolean estFini() {
-        return joueurs().map(Joueur::cité).exists(Cité::estComplete);
+    boolean estFini() {
+        return joueurs.map(Joueur::cité).exists(Cité::estComplete);
     }
+
+    private final List<Joueur> joueurs;
+    private final Classement classement = new Classement();
+
 }

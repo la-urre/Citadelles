@@ -12,7 +12,7 @@ public class PhaseDeSelectionDesPersonnages {
         this.personnageAleatoire = personnageAleatoire;
     }
 
-    public TourDeJeu faireChoisirPersonnages(List<Joueur> joueursDansLOrdre) {
+    public List<AssociationJoueurPersonnage> faireChoisirPersonnages(List<Joueur> joueursDansLOrdre) {
         List<Personnage> personnagesDisponibles = Personnage.dansLOrdre();
 
         Personnage personnageEcarteFaceCachee = ecarterPersonnageFaceCachee(personnagesDisponibles);
@@ -21,15 +21,15 @@ public class PhaseDeSelectionDesPersonnages {
         List<Personnage> personnagesEcartesFaceVisible = ecarterPersonnagesFaceVisible(joueursDansLOrdre.size(), personnagesDisponibles);
         personnagesDisponibles = personnagesDisponibles.removeAll(personnagesEcartesFaceVisible);
 
-        TourDeJeu tourDeJeu = new TourDeJeu();
+        List<AssociationJoueurPersonnage> associations = List.empty();
         for (Joueur joueur : joueursDansLOrdre) {
             System.out.println(joueur.nom() + " doit choisir un personnage");
             personnagesDisponibles = personnagesDisponibles.size() == 1 && joueursDansLOrdre.size() == 7 ? personnagesDisponibles.append(personnageEcarteFaceCachee) : personnagesDisponibles;
             Personnage personnageChoisi = joueur.controlleur.choisirSonPersonnage(personnagesDisponibles, personnagesEcartesFaceVisible);
             personnagesDisponibles = personnagesDisponibles.remove(personnageChoisi);
-            tourDeJeu.associer(personnageChoisi, joueur);
+            associations = associations.append(new AssociationJoueurPersonnage(joueur, personnageChoisi));
         }
-        return tourDeJeu;
+        return associations;
     }
 
     private Personnage ecarterPersonnageFaceCachee(List<Personnage> personnagesDisponibles) {

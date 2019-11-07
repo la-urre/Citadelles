@@ -1,18 +1,18 @@
 package com.montaury.citadelles.action;
 
-import com.montaury.citadelles.tour.AssociationJoueurPersonnage;
-import com.montaury.citadelles.quartier.Carte;
 import com.montaury.citadelles.Pioche;
-import com.montaury.citadelles.tour.TourDeJeu;
 import com.montaury.citadelles.faux.FauxControlleur;
 import com.montaury.citadelles.joueur.Joueur;
 import com.montaury.citadelles.personnage.Personnage;
+import com.montaury.citadelles.quartier.Carte;
 import com.montaury.citadelles.quartier.Quartier;
+import com.montaury.citadelles.tour.AssociationJoueurPersonnage;
 import io.vavr.collection.HashSet;
 import org.junit.Before;
 import org.junit.Test;
 
 import static com.montaury.citadelles.CitésPredefinies.citéVide;
+import static com.montaury.citadelles.tour.AssociationsDeTour.associationsDeTour;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ActionBatirQuartierDevrait {
@@ -32,7 +32,7 @@ public class ActionBatirQuartierDevrait {
         joueur.ajouterPieces(2);
         joueur.ajouterCartesALaMain(HashSet.of(Carte.TEMPLE_1));
 
-        boolean executable = action.estRéalisablePar(joueur, new TourDeJeu(), piocheVide);
+        boolean executable = action.estRéalisablePar(joueur, associationsDeTour(), piocheVide);
 
         assertThat(executable).isTrue();
     }
@@ -41,7 +41,7 @@ public class ActionBatirQuartierDevrait {
     public void ne_pas_etre_executable_si_le_joueur_n_a_pas_de_quartier_constructible_en_main() {
         joueur.ajouterCartesALaMain(HashSet.of(Carte.TEMPLE_1));
 
-        boolean executable = action.estRéalisablePar(joueur, new TourDeJeu(), piocheVide);
+        boolean executable = action.estRéalisablePar(joueur, associationsDeTour(), piocheVide);
 
         assertThat(executable).isFalse();
     }
@@ -51,7 +51,7 @@ public class ActionBatirQuartierDevrait {
         joueur.ajouterPieces(2);
         joueur.ajouterCartesALaMain(HashSet.of(Carte.CHATEAU_1, Carte.TEMPLE_1, Carte.CASERNE_1));
 
-        action.réaliser(association, new TourDeJeu(), piocheVide);
+        action.réaliser(association, associationsDeTour(), piocheVide);
 
         assertThat(controlleur.cartesDisponibles).containsExactly(Carte.TEMPLE_1);
     }
@@ -61,7 +61,7 @@ public class ActionBatirQuartierDevrait {
         joueur.ajouterPieces(2);
         joueur.ajouterCartesALaMain(HashSet.of(Carte.CHATEAU_1, Carte.TEMPLE_1, Carte.CASERNE_1));
 
-        action.réaliser(association, new TourDeJeu(), piocheVide);
+        action.réaliser(association, associationsDeTour(), piocheVide);
 
         assertThat(joueur.trésor().pieces()).isEqualTo(1);
     }
@@ -71,7 +71,7 @@ public class ActionBatirQuartierDevrait {
         joueur.ajouterPieces(2);
         joueur.ajouterCartesALaMain(HashSet.of(Carte.CHATEAU_1, Carte.TEMPLE_1, Carte.CASERNE_1));
 
-        action.réaliser(association, new TourDeJeu(), piocheVide);
+        action.réaliser(association, associationsDeTour(), piocheVide);
 
         assertThat(joueur.cité().estBati(Quartier.TEMPLE)).isTrue();
     }
@@ -81,7 +81,7 @@ public class ActionBatirQuartierDevrait {
         joueur.ajouterPieces(2);
         joueur.ajouterCartesALaMain(HashSet.of(Carte.CHATEAU_1, Carte.TEMPLE_1, Carte.CASERNE_1));
 
-        action.réaliser(association, new TourDeJeu(), piocheVide);
+        action.réaliser(association, associationsDeTour(), piocheVide);
 
         assertThat(joueur.main().cartes()).doesNotContain(Carte.TEMPLE_1);
     }

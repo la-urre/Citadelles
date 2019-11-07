@@ -1,18 +1,18 @@
 package com.montaury.citadelles.action;
 
-import com.montaury.citadelles.tour.AssociationJoueurPersonnage;
-import com.montaury.citadelles.quartier.Carte;
 import com.montaury.citadelles.Pioche;
-import com.montaury.citadelles.tour.TourDeJeu;
 import com.montaury.citadelles.faux.FauxControlleur;
 import com.montaury.citadelles.joueur.Joueur;
 import com.montaury.citadelles.personnage.Personnage;
+import com.montaury.citadelles.quartier.Carte;
+import com.montaury.citadelles.tour.AssociationJoueurPersonnage;
 import io.vavr.collection.HashSet;
 import org.junit.Before;
 import org.junit.Test;
 
 import static com.montaury.citadelles.CitésPredefinies.citéVide;
 import static com.montaury.citadelles.PiochePrédéfinie.piocheAvec;
+import static com.montaury.citadelles.tour.AssociationsDeTour.associationsDeTour;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ActionEchangerCartesAvecPiocheDevrait {
@@ -29,14 +29,14 @@ public class ActionEchangerCartesAvecPiocheDevrait {
     public void etre_executable_si_la_main_du_joueur_n_est_pas_vide() {
         joueur.ajouterCarteALaMain(Carte.CHATEAU_1);
 
-        boolean executable = action.estRéalisablePar(joueur, new TourDeJeu(), piocheAvec3Cartes);
+        boolean executable = action.estRéalisablePar(joueur, associationsDeTour(), piocheAvec3Cartes);
 
         assertThat(executable).isTrue();
     }
 
     @Test
     public void ne_pas_etre_executable_si_la_main_du_joueur_est_vide() {
-        boolean executable = action.estRéalisablePar(joueur, new TourDeJeu(), piocheAvec3Cartes);
+        boolean executable = action.estRéalisablePar(joueur, associationsDeTour(), piocheAvec3Cartes);
 
         assertThat(executable).isFalse();
     }
@@ -45,7 +45,7 @@ public class ActionEchangerCartesAvecPiocheDevrait {
     public void ne_pas_etre_executable_si_la_pioche_est_vide() {
         joueur.ajouterCarteALaMain(Carte.CHATEAU_1);
 
-        boolean executable = action.estRéalisablePar(joueur, new TourDeJeu(), Pioche.vide());
+        boolean executable = action.estRéalisablePar(joueur, associationsDeTour(), Pioche.vide());
 
         assertThat(executable).isFalse();
     }
@@ -54,7 +54,7 @@ public class ActionEchangerCartesAvecPiocheDevrait {
     public void demander_au_joueur_quelles_cartes_echanger() {
         controlleur.prechoisirCartes(HashSet.of(Carte.CATHEDRALE_1));
 
-        action.réaliser(new AssociationJoueurPersonnage(joueur, Personnage.ROI), new TourDeJeu(), piocheAvec3Cartes);
+        action.réaliser(new AssociationJoueurPersonnage(joueur, Personnage.ROI), associationsDeTour(), piocheAvec3Cartes);
 
         assertThat(controlleur.cartesAEchanger).containsExactly();
     }
@@ -64,7 +64,7 @@ public class ActionEchangerCartesAvecPiocheDevrait {
         joueur.ajouterCartesALaMain(HashSet.of(Carte.CATHEDRALE_1, Carte.CHATEAU_1));
         controlleur.prechoisirCartes(HashSet.of(Carte.CATHEDRALE_1));
 
-        action.réaliser(new AssociationJoueurPersonnage(joueur, Personnage.ROI), new TourDeJeu(), piocheAvec3Cartes);
+        action.réaliser(new AssociationJoueurPersonnage(joueur, Personnage.ROI), associationsDeTour(), piocheAvec3Cartes);
 
         assertThat(joueur.main().cartes()).containsExactlyInAnyOrder(Carte.CHATEAU_1, Carte.CASERNE_1);
         assertThat(piocheAvec3Cartes.tirerCartes(3)).containsExactlyInAnyOrder(Carte.PALAIS_2, Carte.MANOIR_1, Carte.CATHEDRALE_1);
