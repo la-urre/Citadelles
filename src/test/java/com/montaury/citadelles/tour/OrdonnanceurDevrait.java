@@ -1,7 +1,6 @@
 package com.montaury.citadelles.tour;
 
 import com.montaury.citadelles.joueur.Joueur;
-import com.montaury.citadelles.tour.Ordonnanceur;
 import io.vavr.collection.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,9 +12,9 @@ public class OrdonnanceurDevrait {
 
     @Before
     public void setUp() {
-        joueur1 = unJoueur("Joueur1");
-        joueur2 = unJoueur("Joueur2");
-        joueur3 = unJoueur("Joueur3");
+        joueur1 = unJoueur();
+        joueur2 = unJoueur();
+        joueur3 = unJoueur();
         joueurs = List.of(joueur1, joueur2, joueur3);
     }
 

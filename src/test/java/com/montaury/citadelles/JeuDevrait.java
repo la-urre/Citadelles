@@ -6,7 +6,6 @@ import io.vavr.collection.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.montaury.citadelles.joueur.JoueursPredefinis.unAutreJoueur;
 import static com.montaury.citadelles.joueur.JoueursPredefinis.unJoueur;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,7 +17,7 @@ public class JeuDevrait {
     @Before
     public void setUp() {
         joueur = unJoueur();
-        jeu = new Jeu(List.of(joueur, unAutreJoueur()));
+        jeu = new Jeu(List.of(joueur, unJoueur()));
     }
 
     @Test

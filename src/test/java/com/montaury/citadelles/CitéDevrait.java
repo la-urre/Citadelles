@@ -1,6 +1,5 @@
 package com.montaury.citadelles;
 
-import com.montaury.citadelles.faux.FauxControlleur;
 import com.montaury.citadelles.joueur.Joueur;
 import com.montaury.citadelles.joueur.Main;
 import com.montaury.citadelles.joueur.Trésor;
@@ -13,7 +12,6 @@ import io.vavr.collection.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.montaury.citadelles.CitésPredefinies.citéVide;
 import static com.montaury.citadelles.joueur.JoueursPredefinis.unJoueur;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -160,19 +158,16 @@ public class CitéDevrait {
 
     @Test
     public void ne_pas_avoir_de_quartier_destructible_si_elle_est_vide() {
-        Joueur joueur = new Joueur("Toto", 12, citéVide(), new FauxControlleur());
-
-        List<QuartierDestructible> quartiersDestructibles = cité.quartiersDestructiblesPar(joueur);
+        List<QuartierDestructible> quartiersDestructibles = cité.quartiersDestructiblesPar(unJoueur());
 
         assertThat(quartiersDestructibles).isEmpty();
     }
 
     @Test
     public void ne_pas_avoir_de_quartier_destructible_si_elle_est_complete() {
-        Joueur joueur = unJoueur();
         completerCité(cité);
 
-        List<QuartierDestructible> quartiersDestructibles = cité.quartiersDestructiblesPar(joueur);
+        List<QuartierDestructible> quartiersDestructibles = cité.quartiersDestructiblesPar(unJoueur());
 
         assertThat(quartiersDestructibles).isEmpty();
     }

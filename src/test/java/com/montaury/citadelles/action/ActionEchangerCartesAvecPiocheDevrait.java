@@ -1,17 +1,17 @@
 package com.montaury.citadelles.action;
 
 import com.montaury.citadelles.Pioche;
-import com.montaury.citadelles.faux.FauxControlleur;
+import com.montaury.citadelles.joueur.FauxControlleur;
 import com.montaury.citadelles.joueur.Joueur;
 import com.montaury.citadelles.personnage.Personnage;
 import com.montaury.citadelles.quartier.Carte;
-import com.montaury.citadelles.tour.AssociationJoueurPersonnage;
 import io.vavr.collection.HashSet;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.montaury.citadelles.CitésPredefinies.citéVide;
 import static com.montaury.citadelles.PiochePrédéfinie.piocheAvec;
+import static com.montaury.citadelles.joueur.JoueursPredefinis.unJoueur;
+import static com.montaury.citadelles.tour.AssociationJoueurPersonnage.associationEntre;
 import static com.montaury.citadelles.tour.AssociationsDeTour.associationsDeTour;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,7 +20,7 @@ public class ActionEchangerCartesAvecPiocheDevrait {
     @Before
     public void setUp() {
         controlleur = new FauxControlleur();
-        joueur = new Joueur("Toto", 12, citéVide(), controlleur);
+        joueur = unJoueur(controlleur);
         action = new ActionEchangerCartesAvecPioche();
         piocheAvec3Cartes = piocheAvec(Carte.CASERNE_1, Carte.PALAIS_2, Carte.MANOIR_1);
     }
@@ -54,7 +54,7 @@ public class ActionEchangerCartesAvecPiocheDevrait {
     public void demander_au_joueur_quelles_cartes_echanger() {
         controlleur.prechoisirCartes(HashSet.of(Carte.CATHEDRALE_1));
 
-        action.réaliser(new AssociationJoueurPersonnage(joueur, Personnage.ROI), associationsDeTour(), piocheAvec3Cartes);
+        action.réaliser(associationEntre(joueur, Personnage.ROI), associationsDeTour(), piocheAvec3Cartes);
 
         assertThat(controlleur.cartesAEchanger).containsExactly();
     }
@@ -64,7 +64,7 @@ public class ActionEchangerCartesAvecPiocheDevrait {
         joueur.ajouterCartesALaMain(HashSet.of(Carte.CATHEDRALE_1, Carte.CHATEAU_1));
         controlleur.prechoisirCartes(HashSet.of(Carte.CATHEDRALE_1));
 
-        action.réaliser(new AssociationJoueurPersonnage(joueur, Personnage.ROI), associationsDeTour(), piocheAvec3Cartes);
+        action.réaliser(associationEntre(joueur, Personnage.ROI), associationsDeTour(), piocheAvec3Cartes);
 
         assertThat(joueur.main().cartes()).containsExactlyInAnyOrder(Carte.CHATEAU_1, Carte.CASERNE_1);
         assertThat(piocheAvec3Cartes.tirerCartes(3)).containsExactlyInAnyOrder(Carte.PALAIS_2, Carte.MANOIR_1, Carte.CATHEDRALE_1);

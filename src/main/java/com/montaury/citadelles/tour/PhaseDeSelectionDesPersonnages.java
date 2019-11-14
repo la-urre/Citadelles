@@ -5,8 +5,9 @@ import com.montaury.citadelles.personnage.Personnage;
 import com.montaury.citadelles.personnage.PersonnageAleatoire;
 import io.vavr.collection.List;
 
+import static com.montaury.citadelles.tour.AssociationJoueurPersonnage.associationEntre;
+
 public class PhaseDeSelectionDesPersonnages {
-    private final PersonnageAleatoire personnageAleatoire;
 
     public PhaseDeSelectionDesPersonnages(PersonnageAleatoire personnageAleatoire) {
         this.personnageAleatoire = personnageAleatoire;
@@ -27,7 +28,7 @@ public class PhaseDeSelectionDesPersonnages {
             personnagesDisponibles = personnagesDisponibles.size() == 1 && joueursDansLOrdre.size() == 7 ? personnagesDisponibles.append(personnageEcarteFaceCachee) : personnagesDisponibles;
             Personnage personnageChoisi = joueur.controlleur.choisirSonPersonnage(personnagesDisponibles, personnagesEcartesFaceVisible);
             personnagesDisponibles = personnagesDisponibles.remove(personnageChoisi);
-            associations = associations.append(new AssociationJoueurPersonnage(joueur, personnageChoisi));
+            associations = associations.append(associationEntre(joueur, personnageChoisi));
         }
         return associations;
     }
@@ -44,5 +45,7 @@ public class PhaseDeSelectionDesPersonnages {
         return List.range(0, nombreDePersonnagesAEcarter)
                 .map(i -> personnageAleatoire.parmi(personnagesDisponibles));
     }
+
+    private final PersonnageAleatoire personnageAleatoire;
 
 }

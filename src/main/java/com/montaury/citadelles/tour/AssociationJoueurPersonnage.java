@@ -14,7 +14,7 @@ public class AssociationJoueurPersonnage {
         return new AssociationJoueurPersonnage(joueur, personnage);
     }
 
-    public AssociationJoueurPersonnage(Joueur joueur, Personnage personnage) {
+    private AssociationJoueurPersonnage(Joueur joueur, Personnage personnage) {
         this.joueur = joueur;
         this.personnage = personnage;
     }
@@ -63,6 +63,6 @@ public class AssociationJoueurPersonnage {
     public final Personnage personnage;
     private boolean assassiné;
     private Option<Joueur> voléPar = Option.none();
-    private static Set<TypeAction> ACTION_DEBUT_TOUR = HashSet.of(TypeAction.PIOCHER_1_CARTE_PARMI_2, TypeAction.PRENDRE_2_PIECES);
-    private static Set<TypeAction> ACTIONS_OPTIONNELLES_DE_BASE = HashSet.of(TypeAction.BATIR_QUARTIER, TypeAction.TERMINER_TOUR);
+    private static final Set<TypeAction> ACTION_DEBUT_TOUR = HashSet.of(TypeAction.PIOCHER_1_CARTE_PARMI_2, TypeAction.PRENDRE_2_PIECES);
+    private static final Set<TypeAction> ACTIONS_OPTIONNELLES_DE_BASE = HashSet.of(TypeAction.BATIR_QUARTIER, TypeAction.TERMINER_TOUR);
 }

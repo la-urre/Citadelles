@@ -5,8 +5,8 @@ import io.vavr.collection.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.montaury.citadelles.CitésPredefinies.citéVide;
 import static com.montaury.citadelles.joueur.JoueursPredefinis.unJoueur;
+import static com.montaury.citadelles.joueur.JoueursPredefinis.unJoueurAvecAge;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class MiseEnPlaceDevrait {
@@ -16,7 +16,7 @@ public class MiseEnPlaceDevrait {
     @Before
     public void setUp() {
         joueur1 = unJoueur();
-        joueur2 = new Joueur("Nom2", joueur1.age() + 1, citéVide());
+        joueur2 = unJoueurAvecAge(joueur1.age() + 1);
         miseEnPlace = new MiseEnPlace();
     }
 
@@ -45,7 +45,7 @@ public class MiseEnPlaceDevrait {
 
     @Test
     public void donner_la_couronne_au_premier_joueur_si_plusieurs_ont_le_meme_age() {
-        Joueur joueur3 = new Joueur("Nom3", joueur1.age(), citéVide());
+        Joueur joueur3 = unJoueurAvecAge(joueur1.age());
         Joueur joueurAyantLaCouronne = miseEnPlace.commencerPartie(Pioche.vide(), List.of(joueur3, joueur1));
 
         assertThat(joueurAyantLaCouronne).isEqualTo(joueur3);

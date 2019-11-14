@@ -5,23 +5,14 @@ import com.montaury.citadelles.joueur.Joueur;
 import com.montaury.citadelles.personnage.PersonnageAleatoire;
 import io.vavr.collection.List;
 
-import static java.util.function.Predicate.not;
+import static com.montaury.citadelles.tour.AssociationsDeTour.associationsDeTour;
 
 public class TourDeJeu {
 
     public List<AssociationJoueurPersonnage> jouer(List<Joueur> joueurs, Joueur joueurAvecCouronne, Pioche pioche) {
         List<AssociationJoueurPersonnage> associations = faireChoisirPersonnages(joueurs, joueurAvecCouronne);
-        AssociationsDeTour associationsDeTour = new AssociationsDeTour(associations);
-        faireJouerPersonnagesDansLOrdre(associationsDeTour, pioche);
+        associationsDeTour(associations).faireJouerPersonnagesDansLOrdre(pioche);
         return associations;
-    }
-
-    void faireJouerPersonnagesDansLOrdre(AssociationsDeTour associationsDeTour, Pioche pioche) {
-        associationsDeTour.associations
-                .filter(not(AssociationJoueurPersonnage::estAssassiné))
-                .sortBy(associationJoueurPersonnage -> associationJoueurPersonnage.personnage.getOrdre())
-                .map(TourDuJoueur::new)
-                .forEach(tourDuJoueur -> tourDuJoueur.deroulerTour(associationsDeTour, pioche));
     }
 
     private List<AssociationJoueurPersonnage> faireChoisirPersonnages(List<Joueur> joueurs, Joueur joueurAvecCouronne) {

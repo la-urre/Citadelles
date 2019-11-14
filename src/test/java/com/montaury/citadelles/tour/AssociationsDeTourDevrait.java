@@ -2,27 +2,21 @@ package com.montaury.citadelles.tour;
 
 import com.montaury.citadelles.Pioche;
 import com.montaury.citadelles.action.TypeAction;
-import com.montaury.citadelles.faux.FauxControlleur;
+import com.montaury.citadelles.joueur.FauxControlleur;
 import com.montaury.citadelles.joueur.Joueur;
 import com.montaury.citadelles.personnage.Personnage;
 import com.montaury.citadelles.quartier.Carte;
 import io.vavr.collection.List;
-import org.junit.Before;
 import org.junit.Test;
 
 import static com.montaury.citadelles.CitésPredefinies.citéAvec;
 import static com.montaury.citadelles.PiochePrédéfinie.piocheAvec;
-import static com.montaury.citadelles.joueur.JoueursPredefinis.unAutreJoueur;
 import static com.montaury.citadelles.joueur.JoueursPredefinis.unJoueur;
 import static com.montaury.citadelles.tour.AssociationJoueurPersonnage.associationEntre;
 import static com.montaury.citadelles.tour.AssociationsDeTour.associationsDeTour;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TourDeJeuDevrait {
-    @Before
-    public void setUp() {
-        tourDeJeu = new TourDeJeu();
-    }
+public class AssociationsDeTourDevrait {
 
     @Test
     public void appeler_les_joueurs_dans_l_ordre_des_personnages() {
@@ -33,7 +27,7 @@ public class TourDeJeuDevrait {
                 associationEntre(unJoueur(controlleur), Personnage.ASSASSIN)
         );
 
-        tourDeJeu.faireJouerPersonnagesDansLOrdre(associations, Pioche.vide());
+        associations.faireJouerPersonnagesDansLOrdre(Pioche.vide());
 
         assertThat(controlleur.actionsPossibles.get(1))
                 .containsExactlyInAnyOrder(TypeAction.ASSASSINER, TypeAction.TERMINER_TOUR);
@@ -51,7 +45,7 @@ public class TourDeJeuDevrait {
                 associationEntre(unJoueur(fauxControlleur), Personnage.VOLEUR)
         );
 
-        tourDeJeu.faireJouerPersonnagesDansLOrdre(associations, piocheAvec(Carte.CHATEAU_1, Carte.TOUR_DE_GUET_3));
+        associations.faireJouerPersonnagesDansLOrdre(piocheAvec(Carte.CHATEAU_1, Carte.TOUR_DE_GUET_3));
 
         assertThat(fauxControlleur.actionsPossibles.get(0))
                 .containsExactlyInAnyOrder(TypeAction.PIOCHER_1_CARTE_PARMI_2, TypeAction.PRENDRE_2_PIECES);
@@ -65,7 +59,7 @@ public class TourDeJeuDevrait {
                 associationEntre(unJoueur(fauxControlleur), Personnage.VOLEUR)
         );
 
-        tourDeJeu.faireJouerPersonnagesDansLOrdre(associations, Pioche.vide());
+        associations.faireJouerPersonnagesDansLOrdre(Pioche.vide());
 
         assertThat(fauxControlleur.actionsPossibles.get(0)).doesNotContain(TypeAction.PIOCHER_1_CARTE_PARMI_2);
     }
@@ -78,7 +72,7 @@ public class TourDeJeuDevrait {
                 associationEntre(unJoueur(fauxControlleur), Personnage.VOLEUR)
         );
 
-        tourDeJeu.faireJouerPersonnagesDansLOrdre(associations, Pioche.vide());
+        associations.faireJouerPersonnagesDansLOrdre(Pioche.vide());
 
         assertThat(fauxControlleur.actionsPossibles.size()).isEqualTo(2);
     }
@@ -94,7 +88,7 @@ public class TourDeJeuDevrait {
                 associationEntre(joueur, Personnage.VOLEUR)
         );
 
-        tourDeJeu.faireJouerPersonnagesDansLOrdre(associations, Pioche.vide());
+        associations.faireJouerPersonnagesDansLOrdre(Pioche.vide());
 
         assertThat(fauxControlleur.actionsPossibles.get(1)).containsExactlyInAnyOrder(TypeAction.BATIR_QUARTIER, TypeAction.TERMINER_TOUR, TypeAction.VOLER);
     }
@@ -107,7 +101,7 @@ public class TourDeJeuDevrait {
                 associationEntre(unJoueur(fauxControlleur), Personnage.ROI)
         );
 
-        tourDeJeu.faireJouerPersonnagesDansLOrdre(associations, Pioche.vide());
+        associations.faireJouerPersonnagesDansLOrdre(Pioche.vide());
 
         assertThat(fauxControlleur.actionsPossibles.get(2)).doesNotContain(TypeAction.PERCEVOIR_REVENUS);
     }
@@ -120,7 +114,7 @@ public class TourDeJeuDevrait {
                 associationEntre(unJoueur(fauxControlleur), Personnage.ROI)
         );
 
-        tourDeJeu.faireJouerPersonnagesDansLOrdre(associations, Pioche.vide());
+        associations.faireJouerPersonnagesDansLOrdre(Pioche.vide());
 
         assertThat(fauxControlleur.actionsPossibles.get(1)).doesNotContain(TypeAction.PRENDRE_2_PIECES, TypeAction.PIOCHER_1_CARTE_PARMI_2);
     }
@@ -134,7 +128,7 @@ public class TourDeJeuDevrait {
         );
         associations.assassiner(Personnage.EVEQUE);
 
-        tourDeJeu.faireJouerPersonnagesDansLOrdre(associations, Pioche.vide());
+        associations.faireJouerPersonnagesDansLOrdre(Pioche.vide());
 
         assertThat(controlleurJoueur2.actionsPossibles).isEmpty();
     }
@@ -149,7 +143,7 @@ public class TourDeJeuDevrait {
                 associationEntre(unJoueur(), Personnage.EVEQUE)
         );
 
-        tourDeJeu.faireJouerPersonnagesDansLOrdre(associations, piocheAvec(Carte.CATHEDRALE_1, Carte.CIMETIERE, Carte.CHATEAU_1));
+        associations.faireJouerPersonnagesDansLOrdre(piocheAvec(Carte.CATHEDRALE_1, Carte.CIMETIERE, Carte.CHATEAU_1));
 
         assertThat(controlleurJoueur1.actionsPossibles.get(1)).contains(TypeAction.PIOCHER_3_CARTES_CONTRE_2_PIECES);
     }
@@ -164,7 +158,7 @@ public class TourDeJeuDevrait {
                 associationEntre(unJoueur(), Personnage.EVEQUE)
         );
 
-        tourDeJeu.faireJouerPersonnagesDansLOrdre(associations, Pioche.vide());
+        associations.faireJouerPersonnagesDansLOrdre(Pioche.vide());
 
         assertThat(controlleurJoueur1.actionsPossibles.get(1)).contains(TypeAction.DEFAUSSER_1_CARTE_ET_RECEVOIR_2_PIECES);
     }
@@ -178,7 +172,7 @@ public class TourDeJeuDevrait {
                 associationEntre(unJoueur(), Personnage.EVEQUE)
         );
 
-        tourDeJeu.faireJouerPersonnagesDansLOrdre(associations, piocheAvec(Carte.CATHEDRALE_1, Carte.CHATEAU_1, Carte.FORGE));
+        associations.faireJouerPersonnagesDansLOrdre(piocheAvec(Carte.CATHEDRALE_1, Carte.CHATEAU_1, Carte.FORGE));
 
         assertThat(controlleurJoueur1.actionsPossibles.get(0)).contains(TypeAction.PIOCHER_1_CARTE_PARMI_3);
         assertThat(controlleurJoueur1.actionsPossibles.get(0)).doesNotContain(TypeAction.PIOCHER_1_CARTE_PARMI_2);
@@ -187,7 +181,7 @@ public class TourDeJeuDevrait {
     @Test
     public void transferer_les_pieces_d_un_joueur_vole_lorsque_son_tour_commence() {
         Joueur joueur1 = unJoueur();
-        Joueur joueur2 = unAutreJoueur();
+        Joueur joueur2 = unJoueur();
         joueur2.ajouterPieces(10);
         AssociationsDeTour associations = associationsDeTour(
                 associationEntre(joueur1, Personnage.VOLEUR),
@@ -195,7 +189,7 @@ public class TourDeJeuDevrait {
         );
         associations.voler(joueur1, Personnage.EVEQUE);
 
-        tourDeJeu.faireJouerPersonnagesDansLOrdre(associations, piocheAvec(Carte.CATHEDRALE_1, Carte.CHATEAU_1, Carte.FORGE));
+        associations.faireJouerPersonnagesDansLOrdre(piocheAvec(Carte.CATHEDRALE_1, Carte.CHATEAU_1, Carte.FORGE));
 
         assertThat(joueur1.trésor().pieces()).isEqualTo(10);
         assertThat(joueur2.trésor().pieces()).isEqualTo(0);
@@ -204,10 +198,10 @@ public class TourDeJeuDevrait {
     @Test
     public void permettre_de_voler_tous_les_personnages_sauf_assassin_voleur_et_assassine() {
         AssociationsDeTour associations = associationsDeTour(
-                associationEntre(unJoueur("Joueur1"), Personnage.ASSASSIN),
-                associationEntre(unJoueur("Joueur2"), Personnage.VOLEUR),
-                associationEntre(unJoueur("Joueur3"), Personnage.MAGICIEN),
-                associationEntre(unJoueur("Joueur4"), Personnage.ARCHITECTE)
+                associationEntre(unJoueur(), Personnage.ASSASSIN),
+                associationEntre(unJoueur(), Personnage.VOLEUR),
+                associationEntre(unJoueur(), Personnage.MAGICIEN),
+                associationEntre(unJoueur(), Personnage.ARCHITECTE)
         );
         associations.assassiner(Personnage.MAGICIEN);
 
@@ -217,5 +211,4 @@ public class TourDeJeuDevrait {
                 .containsExactly(Personnage.ROI, Personnage.EVEQUE, Personnage.MARCHAND, Personnage.ARCHITECTE, Personnage.CONDOTTIERE);
     }
 
-    private TourDeJeu tourDeJeu;
 }

@@ -1,7 +1,7 @@
 package com.montaury.citadelles.action;
 
 import com.montaury.citadelles.Pioche;
-import com.montaury.citadelles.faux.FauxControlleur;
+import com.montaury.citadelles.joueur.FauxControlleur;
 import com.montaury.citadelles.joueur.Joueur;
 import com.montaury.citadelles.personnage.Personnage;
 import com.montaury.citadelles.quartier.Carte;
@@ -11,7 +11,8 @@ import io.vavr.collection.HashSet;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.montaury.citadelles.CitésPredefinies.citéVide;
+import static com.montaury.citadelles.joueur.JoueursPredefinis.unJoueur;
+import static com.montaury.citadelles.tour.AssociationJoueurPersonnage.associationEntre;
 import static com.montaury.citadelles.tour.AssociationsDeTour.associationsDeTour;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -22,8 +23,8 @@ public class ActionBatirQuartierDevrait {
         action = new ActionBatirQuartier();
         controlleur = new FauxControlleur();
         controlleur.prechoisirCarte(Carte.TEMPLE_1);
-        joueur = new Joueur("Toto", 12, citéVide(), controlleur);
-        association = new AssociationJoueurPersonnage(joueur, Personnage.EVEQUE);
+        joueur = unJoueur(controlleur);
+        association = associationEntre(joueur, Personnage.EVEQUE);
         piocheVide = Pioche.vide();
     }
 

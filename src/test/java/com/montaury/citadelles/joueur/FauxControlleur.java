@@ -1,10 +1,8 @@
-package com.montaury.citadelles.faux;
+package com.montaury.citadelles.joueur;
 
-import com.montaury.citadelles.quartier.Carte;
-import com.montaury.citadelles.joueur.ControlleurDeJoueur;
-import com.montaury.citadelles.joueur.Joueur;
-import com.montaury.citadelles.personnage.Personnage;
 import com.montaury.citadelles.action.TypeAction;
+import com.montaury.citadelles.personnage.Personnage;
+import com.montaury.citadelles.quartier.Carte;
 import com.montaury.citadelles.quartier.QuartierDestructible;
 import io.vavr.Tuple2;
 import io.vavr.collection.*;

@@ -1,10 +1,10 @@
 package com.montaury.citadelles.joueur;
 
-import com.montaury.citadelles.quartier.Carte;
+import com.montaury.citadelles.Cité;
 import com.montaury.citadelles.Pioche;
 import com.montaury.citadelles.Possession;
-import com.montaury.citadelles.Cité;
 import com.montaury.citadelles.personnage.Personnage;
+import com.montaury.citadelles.quartier.Carte;
 import com.montaury.citadelles.quartier.Cout;
 import com.montaury.citadelles.score.Score;
 import io.vavr.collection.List;
@@ -15,17 +15,18 @@ public class Joueur {
     private final int age;
     private final Cité cité;
     public final ControlleurDeJoueur controlleur;
-    private Trésor trésor = Trésor.vide();
+    private Trésor trésor;
     private Main main = Main.vide();
 
-    public Joueur(String nom, int age, Cité cité) {
-        this(nom, age, cité, new ControlleurHumain());
+    public Joueur(String nom, int age, Cité cité, ControlleurDeJoueur controlleur) {
+        this(nom, age, cité, Trésor.vide(), controlleur);
     }
 
-    public Joueur(String nom, int age, Cité cité, ControlleurDeJoueur controlleur) {
+    Joueur(String nom, int age, Cité cité, Trésor trésor, ControlleurDeJoueur controlleur) {
         this.nom = nom;
         this.age = age;
         this.cité = cité;
+        this.trésor = trésor;
         this.controlleur = controlleur;
     }
 

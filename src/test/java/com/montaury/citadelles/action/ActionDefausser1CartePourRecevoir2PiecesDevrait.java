@@ -1,15 +1,15 @@
 package com.montaury.citadelles.action;
 
 import com.montaury.citadelles.Pioche;
-import com.montaury.citadelles.faux.FauxControlleur;
+import com.montaury.citadelles.joueur.FauxControlleur;
 import com.montaury.citadelles.joueur.Joueur;
 import com.montaury.citadelles.personnage.Personnage;
 import com.montaury.citadelles.quartier.Carte;
-import com.montaury.citadelles.tour.AssociationJoueurPersonnage;
 import org.junit.Before;
 import org.junit.Test;
 
 import static com.montaury.citadelles.joueur.JoueursPredefinis.unJoueur;
+import static com.montaury.citadelles.tour.AssociationJoueurPersonnage.associationEntre;
 import static com.montaury.citadelles.tour.AssociationsDeTour.associationsDeTour;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -43,7 +43,7 @@ public class ActionDefausser1CartePourRecevoir2PiecesDevrait {
     public void demander_au_joueur_quelle_carte_defausser() {
         joueur.ajouterCarteALaMain(Carte.CHATEAU_1);
 
-        action.réaliser(new AssociationJoueurPersonnage(joueur, Personnage.ROI), associationsDeTour(), piocheVide);
+        action.réaliser(associationEntre(joueur, Personnage.ROI), associationsDeTour(), piocheVide);
 
         assertThat(controlleur.cartesDisponibles).containsExactly(Carte.CHATEAU_1);
     }
@@ -53,7 +53,7 @@ public class ActionDefausser1CartePourRecevoir2PiecesDevrait {
         joueur.ajouterCarteALaMain(Carte.CHATEAU_1);
         controlleur.prechoisirCarte(Carte.CHATEAU_1);
 
-        action.réaliser(new AssociationJoueurPersonnage(joueur, Personnage.ROI), associationsDeTour(), piocheVide);
+        action.réaliser(associationEntre(joueur, Personnage.ROI), associationsDeTour(), piocheVide);
 
         assertThat(joueur.main().nombreDeCartes()).isEqualTo(0);
     }
@@ -63,7 +63,7 @@ public class ActionDefausser1CartePourRecevoir2PiecesDevrait {
         joueur.ajouterCarteALaMain(Carte.CHATEAU_1);
         controlleur.prechoisirCarte(Carte.CHATEAU_1);
 
-        action.réaliser(new AssociationJoueurPersonnage(joueur, Personnage.ROI), associationsDeTour(), piocheVide);
+        action.réaliser(associationEntre(joueur, Personnage.ROI), associationsDeTour(), piocheVide);
 
         assertThat(piocheVide.tirerCarte()).contains(Carte.CHATEAU_1);
     }
@@ -73,7 +73,7 @@ public class ActionDefausser1CartePourRecevoir2PiecesDevrait {
         joueur.ajouterCarteALaMain(Carte.CHATEAU_1);
         controlleur.prechoisirCarte(Carte.CHATEAU_1);
 
-        action.réaliser(new AssociationJoueurPersonnage(joueur, Personnage.ROI), associationsDeTour(), piocheVide);
+        action.réaliser(associationEntre(joueur, Personnage.ROI), associationsDeTour(), piocheVide);
 
         assertThat(joueur.trésor().pieces()).isEqualTo(2);
     }

@@ -1,5 +1,6 @@
 package com.montaury.citadelles.tour;
 
+import com.montaury.citadelles.Pioche;
 import com.montaury.citadelles.joueur.Joueur;
 import com.montaury.citadelles.personnage.Personnage;
 import com.montaury.citadelles.quartier.Carte;
@@ -11,6 +12,8 @@ import io.vavr.collection.List;
 import io.vavr.collection.Map;
 import io.vavr.control.Option;
 
+import static java.util.function.Predicate.not;
+
 public class AssociationsDeTour {
     public static AssociationsDeTour associationsDeTour(List<AssociationJoueurPersonnage> associations) {
         return new AssociationsDeTour(associations);
@@ -20,8 +23,16 @@ public class AssociationsDeTour {
         return associationsDeTour(List.of(associations));
     }
 
-    public AssociationsDeTour(List<AssociationJoueurPersonnage> associations) {
+    private AssociationsDeTour(List<AssociationJoueurPersonnage> associations) {
         this.associations = associations;
+    }
+
+    void faireJouerPersonnagesDansLOrdre(Pioche pioche) {
+        associations
+                .filter(not(AssociationJoueurPersonnage::estAssassiné))
+                .sortBy(associationJoueurPersonnage -> associationJoueurPersonnage.personnage.getOrdre())
+                .map(TourDuJoueur::new)
+                .forEach(tourDuJoueur -> tourDuJoueur.deroulerTour(this, pioche));
     }
 
     public List<Joueur> joueursSans(Joueur joueur) {
@@ -36,7 +47,7 @@ public class AssociationsDeTour {
         associationAuPersonnage(personnage).peek(AssociationJoueurPersonnage::assassiner);
     }
 
-    public Option<AssociationJoueurPersonnage> associationAuPersonnage(Personnage personnage) {
+    private Option<AssociationJoueurPersonnage> associationAuPersonnage(Personnage personnage) {
         return associations.find(a -> a.personnage == personnage);
     }
 
@@ -79,5 +90,5 @@ public class AssociationsDeTour {
 
     private static final Cout COUT_DE_RECUPERATION_DE_QUARTIER_DETRUIT = Cout.de(1);
 
-    final List<AssociationJoueurPersonnage> associations;
+    private final List<AssociationJoueurPersonnage> associations;
 }

@@ -14,9 +14,10 @@ public class ActionDefausser1CartePourRecevoir2Pieces implements Action {
 
     @Override
     public void réaliser(AssociationJoueurPersonnage associationJoueurPersonnage, AssociationsDeTour associations, Pioche pioche) {
-        Carte carte = associationJoueurPersonnage.joueur().controlleur.choisirParmi(associationJoueurPersonnage.joueur().main().cartes());
-        associationJoueurPersonnage.joueur().main().retirer(carte);
+        Joueur joueur = associationJoueurPersonnage.joueur();
+        Carte carte = joueur.controlleur.choisirParmi(joueur.main().cartes());
+        joueur.main().retirer(carte);
         pioche.mettreDessous(carte);
-        associationJoueurPersonnage.joueur().ajouterPieces(2);
+        joueur.ajouterPieces(2);
     }
 }

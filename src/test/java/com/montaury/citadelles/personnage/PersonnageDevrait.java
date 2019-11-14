@@ -1,7 +1,7 @@
 package com.montaury.citadelles.personnage;
 
-import com.montaury.citadelles.quartier.TypeQuartier;
 import com.montaury.citadelles.action.TypeAction;
+import com.montaury.citadelles.quartier.TypeQuartier;
 import io.vavr.collection.List;
 import org.junit.Test;
 
