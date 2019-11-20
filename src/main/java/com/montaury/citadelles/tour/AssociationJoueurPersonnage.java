@@ -1,6 +1,6 @@
 package com.montaury.citadelles.tour;
 
-import com.montaury.citadelles.action.TypeAction;
+import com.montaury.citadelles.tour.action.TypeAction;
 import com.montaury.citadelles.joueur.Joueur;
 import com.montaury.citadelles.personnage.Personnage;
 import com.montaury.citadelles.quartier.Quartier;

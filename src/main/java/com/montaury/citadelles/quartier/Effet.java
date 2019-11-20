@@ -1,7 +1,7 @@
 package com.montaury.citadelles.quartier;
 
 import com.montaury.citadelles.Possession;
-import com.montaury.citadelles.action.TypeAction;
+import com.montaury.citadelles.tour.action.TypeAction;
 import com.montaury.citadelles.personnage.Personnage;
 import com.montaury.citadelles.score.Score;
 import io.vavr.Tuple;

@@ -1,4 +1,4 @@
-package com.montaury.citadelles.action;
+package com.montaury.citadelles.tour.action;
 
 import com.montaury.citadelles.tour.AssociationJoueurPersonnage;
 import com.montaury.citadelles.quartier.Carte;

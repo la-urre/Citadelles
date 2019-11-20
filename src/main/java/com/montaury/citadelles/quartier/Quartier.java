@@ -1,14 +1,14 @@
 package com.montaury.citadelles.quartier;
 
 import com.montaury.citadelles.Possession;
-import com.montaury.citadelles.action.TypeAction;
+import com.montaury.citadelles.tour.action.TypeAction;
 import com.montaury.citadelles.personnage.Personnage;
 import com.montaury.citadelles.score.Score;
 import io.vavr.collection.Set;
 import io.vavr.control.Option;
 
 import static com.montaury.citadelles.quartier.TypeQuartier.*;
-import static com.montaury.citadelles.action.TypeAction.*;
+import static com.montaury.citadelles.tour.action.TypeAction.*;
 
 public enum Quartier {
     MANOIR(3, NOBLE),

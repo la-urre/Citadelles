@@ -1,4 +1,4 @@
-package com.montaury.citadelles.action;
+package com.montaury.citadelles.tour.action;
 
 import com.montaury.citadelles.Pioche;
 import com.montaury.citadelles.joueur.Joueur;
@@ -11,21 +11,21 @@ import static com.montaury.citadelles.tour.AssociationJoueurPersonnage.associati
 import static com.montaury.citadelles.tour.AssociationsDeTour.associationsDeTour;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ActionPrendre2PiecesDevrait {
+public class ActionRecevoirUnePieceDevrait {
 
     @Before
     public void setUp() {
         joueur = unJoueur();
-        action = new ActionPrendre2Pieces();
+        action = new ActionRecevoirUnePiece();
     }
 
     @Test
-    public void ajouter_2_pieces_au_tresor_du_joueur() {
-        action.réaliser(associationEntre(joueur, Personnage.EVEQUE), associationsDeTour(), Pioche.vide());
+    public void donner_une_piece_au_joueur() {
+        action.réaliser(associationEntre(joueur, Personnage.VOLEUR), associationsDeTour(), Pioche.vide());
 
-        assertThat(joueur.trésor().pieces()).isEqualTo(2);
+        assertThat(joueur.trésor().pieces()).isEqualTo(1);
     }
 
     private Joueur joueur;
-    private ActionPrendre2Pieces action;
+    private ActionRecevoirUnePiece action;
 }

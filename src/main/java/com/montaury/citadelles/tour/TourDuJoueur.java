@@ -1,7 +1,7 @@
 package com.montaury.citadelles.tour;
 
 import com.montaury.citadelles.Pioche;
-import com.montaury.citadelles.action.TypeAction;
+import com.montaury.citadelles.tour.action.TypeAction;
 import io.vavr.collection.Set;
 
 class TourDuJoueur {
