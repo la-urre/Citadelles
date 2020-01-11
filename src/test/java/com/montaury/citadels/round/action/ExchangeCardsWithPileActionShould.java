@@ -10,7 +10,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static com.montaury.citadels.CardPileFixtures.pileWith;
+import static com.montaury.citadels.player.HandFixtures.hand;
 import static com.montaury.citadels.player.PlayerFixtures.aPlayer;
+import static com.montaury.citadels.player.PlayerFixtures.aPlayerWith;
 import static com.montaury.citadels.round.PlayerCharacterAssociation.associationBetween;
 import static com.montaury.citadels.round.GameRoundAssociations.roundAssociations;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,14 +22,13 @@ public class ExchangeCardsWithPileActionShould {
     @Before
     public void setUp() {
         controller = new StubPlayerController();
-        player = aPlayer(controller);
         action = new ExchangeCardsWithPileAction();
         pileWith3Cards = pileWith(Card.BATTLEFIELD_1, Card.PALACE_2, Card.MANOR_1);
     }
 
     @Test
     public void be_executable_if_player_hand_is_not_empty() {
-        player.addCardInHand(Card.CASTLE_1);
+        Player player = aPlayerWith(hand(Card.CASTLE_1));
 
         boolean executable = action.canExecute(player, roundAssociations(), pileWith3Cards);
 
@@ -36,14 +37,14 @@ public class ExchangeCardsWithPileActionShould {
 
     @Test
     public void not_be_executable_if_player_hand_is_empty() {
-        boolean executable = action.canExecute(player, roundAssociations(), pileWith3Cards);
+        boolean executable = action.canExecute(aPlayer(), roundAssociations(), pileWith3Cards);
 
         assertThat(executable).isFalse();
     }
 
     @Test
     public void not_be_executable_if_card_pile_is_empty() {
-        player.addCardInHand(Card.CASTLE_1);
+        Player player = aPlayerWith(hand(Card.CASTLE_1));
 
         boolean executable = action.canExecute(player, roundAssociations(), CardPile.empty());
 
@@ -53,6 +54,7 @@ public class ExchangeCardsWithPileActionShould {
     @Test
     public void ask_the_player_which_cards_to_swap() {
         controller.setNextCards(HashSet.of(Card.CATHEDRAL_1));
+        Player player = aPlayer(controller);
 
         action.execute(associationBetween(player, Character.KING), roundAssociations(), pileWith3Cards);
 
@@ -61,8 +63,8 @@ public class ExchangeCardsWithPileActionShould {
 
     @Test
     public void swap_the_selected_cards_between_hand_and_pile() {
-        player.addCardsInHand(HashSet.of(Card.CATHEDRAL_1, Card.CASTLE_1));
         controller.setNextCards(HashSet.of(Card.CATHEDRAL_1));
+        Player player = aPlayerWith(hand(Card.CATHEDRAL_1, Card.CASTLE_1), controller);
 
         action.execute(associationBetween(player, Character.KING), roundAssociations(), pileWith3Cards);
 
@@ -71,7 +73,6 @@ public class ExchangeCardsWithPileActionShould {
     }
 
     private StubPlayerController controller;
-    private Player player;
     private ExchangeCardsWithPileAction action;
     private CardPile pileWith3Cards;
 }

@@ -43,8 +43,7 @@ public class CardPileShould {
 
         Set<Card> cards = cardPile.draw(2);
 
-        assertThat(cards)
-                .containsExactlyInAnyOrder(Card.TRADING_POST_2, Card.MAP_ROOM);
+        assertThat(cards).containsExactlyInAnyOrder(Card.TRADING_POST_2, Card.MAP_ROOM);
     }
 
     @Test
@@ -53,19 +52,16 @@ public class CardPileShould {
 
         Set<Card> cards = cardPile.draw(4);
 
-        assertThat(cards)
-                .containsExactlyInAnyOrder(Card.CHURCH_2, Card.MAP_ROOM);
+        assertThat(cards).containsExactlyInAnyOrder(Card.CHURCH_2, Card.MAP_ROOM);
     }
 
     @Test
-    public void remove_at_top_and_discard_at_bottom_when_swapping_cards() {
+    public void draw_at_top_and_discard_at_bottom_when_swapping_cards() {
         CardPile cardPile = pileWith(Card.MAP_ROOM, Card.TEMPLE_3);
 
         Set<Card> cards = cardPile.swapWith(List.of(Card.CASTLE_1, Card.MANOR_1));
 
-        assertThat(cards)
-                .containsExactlyInAnyOrder(Card.MAP_ROOM, Card.TEMPLE_3);
-        assertThat(cardPile.draw(2))
-                .containsExactlyInAnyOrder(Card.CASTLE_1, Card.MANOR_1);
+        assertThat(cards).containsExactlyInAnyOrder(Card.MAP_ROOM, Card.TEMPLE_3);
+        assertThat(cardPile.draw(2)).containsExactlyInAnyOrder(Card.CASTLE_1, Card.MANOR_1);
     }
 }

@@ -11,9 +11,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class GameShould {
 
-    private Player player;
-    private Game game;
-
     @Before
     public void setUp() {
         player = PlayerFixtures.aPlayer();
@@ -50,4 +47,7 @@ public class GameShould {
     private void buildDistricts(int number) {
         List.range(0, number).forEach(i -> player.city().buildDistrict(Card.TEMPLE_1));
     }
+
+    private Player player;
+    private Game game;
 }

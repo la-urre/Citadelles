@@ -15,17 +15,17 @@ public class Receive2GoldCoinsActionShould {
 
     @Before
     public void setUp() {
-        player = aPlayer();
         action = new Receive2GoldCoinsAction();
     }
 
     @Test
     public void make_the_player_earn_2_gold_coins() {
+        Player player = aPlayer();
+
         action.execute(associationBetween(player, Character.BISHOP), roundAssociations(), CardPile.empty());
 
         assertThat(player.gold().coins()).isEqualTo(2);
     }
 
-    private Player player;
     private Receive2GoldCoinsAction action;
 }

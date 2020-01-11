@@ -3,13 +3,14 @@ package com.montaury.citadels.player;
 import com.montaury.citadels.CardPile;
 import com.montaury.citadels.district.Card;
 import com.montaury.citadels.district.District;
-import io.vavr.collection.HashSet;
 import io.vavr.collection.List;
 import io.vavr.collection.Set;
 import org.junit.Test;
 
 import static com.montaury.citadels.CardPileFixtures.pileWith;
+import static com.montaury.citadels.CityFixtures.cityWith;
 import static com.montaury.citadels.player.GoldFixtures.gold;
+import static com.montaury.citadels.player.HandFixtures.hand;
 import static com.montaury.citadels.player.PlayerFixtures.aPlayerWith;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -17,8 +18,7 @@ public class PlayerShould {
 
     @Test
     public void be_able_to_build_a_district_when_having_enough_gold() {
-        Player player = aPlayerWith(gold(7));
-        player.addCardInHand(Card.PALACE_1);
+        Player player = aPlayerWith(hand(Card.PALACE_1), gold(7));
 
         Set<Card> buildableDistricts = player.buildableDistrictsInHand();
 
@@ -27,8 +27,7 @@ public class PlayerShould {
 
     @Test
     public void not_be_able_to_build_a_district_when_not_having_enough_gold() {
-        Player player = aPlayerWith(gold(4));
-        player.addCardInHand(Card.PALACE_1);
+        Player player = aPlayerWith(hand(Card.PALACE_1), gold(4));
 
         Set<Card> buildableDistricts = player.buildableDistrictsInHand();
 
@@ -37,9 +36,7 @@ public class PlayerShould {
 
     @Test
     public void not_be_able_to_build_a_district_if_already_built() {
-        Player player = aPlayerWith(gold(7));
-        player.addCardsInHand(HashSet.of(Card.PALACE_1, Card.PALACE_2));
-        player.buildDistrict(Card.PALACE_1);
+        Player player = aPlayerWith(hand(Card.PALACE_2), cityWith(Card.PALACE_1), gold(7));
 
         Set<Card> buildableDistricts = player.buildableDistrictsInHand();
 
@@ -48,8 +45,7 @@ public class PlayerShould {
 
     @Test
     public void remove_card_from_hand_when_building_a_district() {
-        Player player = aPlayerWith(gold(2));
-        player.addCardInHand(Card.CHURCH_1);
+        Player player = aPlayerWith(hand(Card.CHURCH_1), gold(2));
 
         player.buildDistrict(Card.CHURCH_1);
 
@@ -58,8 +54,7 @@ public class PlayerShould {
 
     @Test
     public void spend_gold_when_building_a_district() {
-        Player player = aPlayerWith(gold(2));
-        player.addCardInHand(Card.CHURCH_1);
+        Player player = aPlayerWith(hand(Card.CHURCH_1), gold(2));
 
         player.buildDistrict(Card.CHURCH_1);
 
@@ -68,8 +63,7 @@ public class PlayerShould {
 
     @Test
     public void place_in_the_city_when_building_a_district() {
-        Player player = aPlayerWith(gold(2));
-        player.addCardInHand(Card.CHURCH_1);
+        Player player = aPlayerWith(hand(Card.CHURCH_1), gold(2));
 
         player.buildDistrict(Card.CHURCH_1);
 
@@ -78,11 +72,8 @@ public class PlayerShould {
 
     @Test
     public void change_hands_when_swapping_with_another_player() {
-        Player player = aPlayerWith(gold(2));
-        Player player2 = PlayerFixtures.aPlayer();
-        player.addCardInHand(Card.CASTLE_1);
-        player2.addCardInHand(Card.BATTLEFIELD_1);
-        player2.addCardInHand(Card.GRAVEYARD);
+        Player player = aPlayerWith(hand(Card.CASTLE_1), gold(2));
+        Player player2 = aPlayerWith(hand(Card.BATTLEFIELD_1, Card.GRAVEYARD));
 
         player.exchangeHandWith(player2);
 
@@ -102,9 +93,8 @@ public class PlayerShould {
     }
 
     @Test
-    public void change_pile_and_hand_when_swapping_cards() {
-        Player player = aPlayerWith(gold(2));
-        player.addCardsInHand(HashSet.of(Card.CATHEDRAL_1, Card.TEMPLE_1, Card.BATTLEFIELD_2));
+    public void exchange_cards_between_pile_and_hand_when_swapping_cards() {
+        Player player = aPlayerWith(hand(Card.CATHEDRAL_1, Card.TEMPLE_1, Card.BATTLEFIELD_2), gold(2));
         CardPile cardPile = pileWith(Card.CASTLE_1, Card.DOCKS_1);
 
         player.swapCards(List.of(Card.TEMPLE_1, Card.CATHEDRAL_1), cardPile);

@@ -12,24 +12,24 @@ class PlayerTurn {
 
     void take(GameRoundAssociations tourDeJeu, CardPile cardPile) {
         playerCharacterAssociation.thief().peek(thief -> thief.steal(playerCharacterAssociation.player()));
-        chooseActions(tourDeJeu, cardPile);
+        takeActions(tourDeJeu, cardPile);
     }
 
-    private void chooseActions(GameRoundAssociations tourDeJeu, CardPile cardPile) {
-        action(playerCharacterAssociation.baseActions(), tourDeJeu, cardPile);
-        actions(playerCharacterAssociation.optionalActions(), tourDeJeu, cardPile);
+    private void takeActions(GameRoundAssociations tourDeJeu, CardPile cardPile) {
+        takeAction(playerCharacterAssociation.baseActions(), tourDeJeu, cardPile);
+        takeActions(playerCharacterAssociation.optionalActions(), tourDeJeu, cardPile);
     }
 
-    private void actions(Set<ActionType> availableActions, GameRoundAssociations gameRoundAssociations, CardPile cardPile) {
+    private void takeActions(Set<ActionType> availableActions, GameRoundAssociations gameRoundAssociations, CardPile cardPile) {
         ActionType actionType;
         do {
-            actionType = action(availableActions, gameRoundAssociations, cardPile);
+            actionType = takeAction(availableActions, gameRoundAssociations, cardPile);
             availableActions = availableActions.remove(actionType);
         }
         while (!availableActions.isEmpty() && actionType != ActionType.END_ROUND);
     }
 
-    private ActionType action(Set<ActionType> availableActions, GameRoundAssociations gameRoundAssociations, CardPile cardPile) {
+    private ActionType takeAction(Set<ActionType> availableActions, GameRoundAssociations gameRoundAssociations, CardPile cardPile) {
         availableActions = availableActions.filter(action -> action.canExecute(playerCharacterAssociation.player(), gameRoundAssociations, cardPile));
         ActionType actionType = playerCharacterAssociation.player().controller.selectActionAmong(availableActions.toList());
         actionType.execute(playerCharacterAssociation, gameRoundAssociations, cardPile);
