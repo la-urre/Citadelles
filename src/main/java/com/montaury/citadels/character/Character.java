@@ -51,5 +51,5 @@ public enum Character {
     private final int number;
     private final String name;
     private final List<ActionType> powers;
-    private Option<DistrictType> associatedDistrictType;
+    private final Option<DistrictType> associatedDistrictType;
 }

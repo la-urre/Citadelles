@@ -9,11 +9,12 @@ import io.vavr.collection.List;
 import io.vavr.collection.Map;
 import io.vavr.collection.Set;
 
+import java.util.Random;
 import java.util.function.Function;
 
 public class ComputerController implements PlayerController {
     private int random(int maxExcluded) {
-        return (int) Math.floor(Math.random() * maxExcluded);
+        return random.nextInt(maxExcluded);
     }
 
     @Override
@@ -59,4 +60,6 @@ public class ComputerController implements PlayerController {
     private <T> T randomAmong(List<? extends T> list) {
         return list.get(random(list.size()));
     }
+
+    private final Random random = new Random();
 }

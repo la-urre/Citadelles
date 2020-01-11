@@ -68,14 +68,14 @@ public class GameRoundAssociations {
 
     public Map<Player, List<DestructibleDistrict>> districtsDestructibleBy(Player player) {
         return associations
-                .filter(association -> !association.is(Character.BISHOP) || association.isMurdered())
+                .filter(association -> association.isNot(Character.BISHOP) || association.isMurdered())
                 .map(PlayerCharacterAssociation::player)
                 .toMap(j -> Tuple.of(j, j.city().districtsDestructibleBy(player)));
     }
 
     public Option<Player> playerTakingDestroyedDistrict(Card destroyedDistrict) {
-        return associationHavingBuilt(District.GRAVEYARD)
-                .filter(association -> !association.is(Character.WARLORD))
+        return associationHavingBuiltGraveyard()
+                .filter(association -> association.isNot(Character.WARLORD))
                 .map(PlayerCharacterAssociation::player)
                 .filter(j -> j.canAfford(TAKING_DESTROYED_DISTRICT_COST))
                 .filter(j -> j.controller.acceptCard(destroyedDistrict))
@@ -83,9 +83,9 @@ public class GameRoundAssociations {
                 .peek(j -> j.pay(TAKING_DESTROYED_DISTRICT_COST));
     }
 
-    private Option<PlayerCharacterAssociation> associationHavingBuilt(District district) {
+    private Option<PlayerCharacterAssociation> associationHavingBuiltGraveyard() {
         return associations
-                .find(association -> association.player().city().isBuilt(district));
+                .find(association -> association.player().city().isBuilt(District.GRAVEYARD));
     }
 
     private static final Cost TAKING_DESTROYED_DISTRICT_COST = Cost.of(1);

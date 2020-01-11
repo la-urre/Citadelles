@@ -27,8 +27,8 @@ public class PlayerCharacterAssociation {
         return character;
     }
 
-    public boolean is(Character character) {
-        return this.character == character;
+    public boolean isNot(Character character) {
+        return this.character != character;
     }
 
     public void murder() {

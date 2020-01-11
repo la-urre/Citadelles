@@ -10,7 +10,7 @@ import io.vavr.collection.Set;
 public class ExchangeCardsWithPileAction implements Action {
     @Override
     public boolean canExecute(Player player, GameRoundAssociations associations, CardPile cardPile) {
-        return !player.hand().isEmpty() && cardPile.canDraw(1);
+        return player.hand().hasCards() && cardPile.canDraw(1);
     }
 
     @Override

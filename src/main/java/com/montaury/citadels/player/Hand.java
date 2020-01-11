@@ -45,8 +45,8 @@ public class Hand {
         return cards;
     }
 
-    public boolean isEmpty() {
-        return cards.isEmpty();
+    public boolean hasCards() {
+        return !cards.isEmpty();
     }
 
     private Set<Card> cards;

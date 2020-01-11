@@ -9,7 +9,7 @@ import com.montaury.citadels.round.GameRoundAssociations;
 public class DiscardCardFor2GoldCoinsAction implements Action {
     @Override
     public boolean canExecute(Player player, GameRoundAssociations associations, CardPile cardPile) {
-        return !player.hand().isEmpty();
+        return player.hand().hasCards();
     }
 
     @Override
