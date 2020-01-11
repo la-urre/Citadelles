@@ -23,7 +23,7 @@ public enum ActionType {
     DESTROY_DISTRICT(new DestroyDistrictAction()),
 
     // SPECIAL ACTIONS
-    DRAW_3_CARDS_KEEP_1(new Keep1CardAmongManyAction(2)),
+    DRAW_3_CARDS_KEEP_1(new Keep1CardAmongManyAction(3)),
     DRAW_3_CARDS_FOR_2_GOLD_COINS(new Draw3CardsFor2GoldCoins()),
     DISCARD_CARD_FOR_2_GOLD_COINS(new DiscardCardFor2GoldCoinsAction());
 
