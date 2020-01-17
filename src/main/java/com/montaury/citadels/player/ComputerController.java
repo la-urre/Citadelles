@@ -54,7 +54,7 @@ public class ComputerController implements PlayerController {
 
     @Override
     public boolean acceptCard(Card card) {
-        return false;
+        return random.nextBoolean();
     }
 
     private <T> T randomAmong(List<? extends T> list) {
