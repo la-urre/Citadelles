@@ -13,10 +13,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CharacterSelectionPhaseShould {
 
+    private StubRandomCharacterSelector randomCharacterSelector;
+
     @Before
     public void setUp() {
         List<Character> preparedSelection = List.of(Character.BISHOP, Character.ARCHITECT, Character.MAGICIAN, Character.KING, Character.WARLORD, Character.ASSASSIN, Character.THIEF, Character.MERCHANT);
-        characterSelectionPhase = new CharacterSelectionPhase(new StubRandomCharacterSelector(preparedSelection));
+        randomCharacterSelector = new StubRandomCharacterSelector(preparedSelection);
+        characterSelectionPhase = new CharacterSelectionPhase(randomCharacterSelector);
     }
 
     @Test
@@ -71,6 +74,8 @@ public class CharacterSelectionPhaseShould {
 
         assertThat(controller.faceUpDiscardedCharacters)
                 .containsExactly(Character.ARCHITECT, Character.MAGICIAN);
+        assertThat(randomCharacterSelector.proposedCharacters)
+                .doesNotContain(Character.ARCHITECT);
     }
 
     @Test

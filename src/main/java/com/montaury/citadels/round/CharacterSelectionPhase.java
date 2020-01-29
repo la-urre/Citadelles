@@ -42,8 +42,13 @@ public class CharacterSelectionPhase {
     }
 
     private List<Character> discardCharacters(List<Character> availableCharacters, int numberToDiscard) {
-        return List.range(0, numberToDiscard)
-                .map(i -> randomCharacterSelector.among(availableCharacters));
+        List<Character> discardedCharacters = List.empty();
+        for (int i = 0; i < numberToDiscard; i++) {
+            Character discardedCharacter = randomCharacterSelector.among(availableCharacters);
+            discardedCharacters = discardedCharacters.append(discardedCharacter);
+            availableCharacters = availableCharacters.remove(discardedCharacter);
+        }
+        return discardedCharacters;
     }
 
     private final RandomCharacterSelector randomCharacterSelector;
