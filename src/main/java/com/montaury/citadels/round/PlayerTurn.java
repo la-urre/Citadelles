@@ -6,8 +6,9 @@ import io.vavr.collection.Set;
 
 class PlayerTurn {
 
-    PlayerTurn(PlayerCharacterAssociation playerCharacterAssociation) {
+    PlayerTurn(PlayerCharacterAssociation playerCharacterAssociation, ActionsFeedback actionsFeedback) {
         this.playerCharacterAssociation = playerCharacterAssociation;
+        this.actionsFeedback = actionsFeedback;
     }
 
     void take(GameRoundAssociations tourDeJeu, CardPile cardPile) {
@@ -33,8 +34,10 @@ class PlayerTurn {
         availableActions = availableActions.filter(action -> action.canExecute(playerCharacterAssociation.player(), gameRoundAssociations, cardPile));
         ActionType actionType = playerCharacterAssociation.player().controller.selectActionAmong(availableActions.toList());
         actionType.execute(playerCharacterAssociation, gameRoundAssociations, cardPile);
+        actionsFeedback.actionExecuted(playerCharacterAssociation, actionType);
         return actionType;
     }
 
     private final PlayerCharacterAssociation playerCharacterAssociation;
+    private final ActionsFeedback actionsFeedback;
 }

@@ -28,10 +28,11 @@ public class GameRoundAssociations {
     }
 
     void playTurnsInOrder(CardPile cardPile) {
+        ActionsFeedback actionsFeedback = new ActionsFeedback(associations);
         associations
                 .filter(not(PlayerCharacterAssociation::isMurdered))
                 .sortBy(association -> association.character.number())
-                .map(PlayerTurn::new)
+                .map(association -> new PlayerTurn(association, actionsFeedback))
                 .forEach(playerTurn -> playerTurn.take(this, cardPile));
     }
 

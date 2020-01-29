@@ -105,7 +105,7 @@ public class HumanController implements PlayerController {
     private static void displayCharactersForSelection(List<Character> characters, List<Character> faceUpRevealedCharacters) {
         displayCharactersForSelection(characters);
         for (int i = 0; i < faceUpRevealedCharacters.size(); i++) {
-            System.out.println("Ecarté: " + faceUpRevealedCharacters.get(i).name());
+            System.out.println("Ecarté: " + faceUpRevealedCharacters.get(i).getName());
         }
     }
 
